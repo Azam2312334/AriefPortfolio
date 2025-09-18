@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arief Azam — Portfolio 🚀
 
-## Getting Started
+Welcome to my portfolio repository!  
+I’m **Arief Nur Azam**, a passionate developer from Malaysia, currently exploring **web development, mobile apps, and modern frameworks** like **Next.js, React Native, Flutter**, and **Firebase** integration.  
 
-First, run the development server:
+This repository showcases my projects, experiments, and learning journey in software engineering and beyond.  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌟 About Me
+- 🎓 Final-year Software Engineering student
+- 📱 Building **sports matchmaking apps (MySukan)** and mental health platforms
+- 🔍 Interested in **frontend development, backend integration, and generative AI in education**
+- 📚 Always learning new tech like **Next.js 15, TailwindCSS, Prisma, Firebase**
+- 🏉 Big fan of community, teamwork, and creative coding
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔨 Tech Stack
+- **Languages**: JavaScript, TypeScript, Python, Dart, Java, SQL  
+- **Frontend**: React, Next.js, TailwindCSS, ShadCN UI, GSAP  
+- **Mobile**: React Native, Flutter  
+- **Backend & DB**: Firebase, MySQL, Prisma ORM, Node.js  
+- **Tools**: Git, VS Code, pnpm, Expo, NetBeans  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📌 Featured Projects
+### 🏀 [MySukan](#) *(Sports Matchmaking App)*
+A cross-platform app to connect players and teams for community sports.  
+Features:
+- Matchmaking system (join/create matches, skill & region filters)
+- Firebase authentication & real-time database
+- Admin controls & reporting system
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🌐 [Next.js Portfolio](#)
+Personal portfolio built with **Next.js 15, Tailwind, and animations (GSAP)**.  
+Showcasing my journey, projects, and technical skills.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📫 Contact Me
+- 💼 LinkedIn: https://www.linkedin.com/in/arief-azams/
+- 📧 Email: ariefnurazams@gmail.com
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✨ Thanks for visiting my portfolio repo! Feel free to explore my projects and reach out for collaboration or discussion.
