@@ -14,7 +14,7 @@ export default function Projects() {
             clean and responsive design.
           </p>
           <a
-            href="https://github.com/Azam2312334/AriefPortfolio"
+            href="https://arief-space.vercel.app/"
             target="_blank"
             className="text-blue-500 hover:underline"
           >
