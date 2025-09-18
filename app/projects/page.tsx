@@ -28,12 +28,6 @@ export default function Projects() {
           <p className="text-gray-600 mb-4">
             A mobile sports matchmaking application designed to connect players
             and encourage active lifestyles.  
-            <br />• Discover events near you and join with a single tap.  
-            <br />• Organize matches and invite others with a private event code.  
-            <br />• Get matched automatically with opponents or teams of your level —
-            whether beginner, intermediate, or pro.  
-            <br />• Climb the sports rankings with a gamified system that rewards
-            real-life activity.  
           </p>
           <a
             href="https://github.com/Azam2312334/MySukanApps"
