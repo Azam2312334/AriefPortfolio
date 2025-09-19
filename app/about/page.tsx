@@ -1,9 +1,11 @@
 export default function About() {
   return (
-    <main className="min-h-screen px-8 py-16">
+     <main className="flex flex-col items-center justify-center min-h-screen text-white px-4" 
+    style={{background: 'radial-gradient(circle at center, #0a0a0a 0%, #1a1a1a 100%)'}}>
+      
       <h1 className="text-4xl font-bold mb-8 text-center">About Me</h1>
 
-      <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-700">
+      <div className="max-w-3xl mx-auto space-y-6 text-lg text-gray-200">
         <p>
           Hi, I’m <span className="font-semibold">Arief Azam</span> — a web and
           mobile developer passionate about building smooth, interactive, and
