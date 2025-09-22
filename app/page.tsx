@@ -125,36 +125,77 @@ export default function Home() {
       {/* Projects Section */}
       <section ref={projectsRef} className="flex flex-col items-center justify-center h-screen text-white px-4">
         <h2 className="text-4xl font-bold mb-12">My Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
-          {/* Project 1 */}
-          <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
-            <Icon3D />  
-            <h3 className="text-xl font-semibold mb-3">Portfolio</h3>
-            <p className="text-gray-300 mb-4">A project showcases my skills, experience, and featured works in a clean and responsive design.</p>
-          </div>
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+  {/* Project 1 */}
+  <div className="bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl p-6 hover:scale-105 hover:shadow-2xl 
+                  hover:shadow-white/30 transition-transform 
+                  duration-300 ease-out text-center">
+    <Icon3D />  
+    <h3 className="text-xl font-semibold mb-3">Portfolio</h3>
+    <p className="text-gray-300 mb-4">
+      A project showcases my skills, experience, and featured works in a clean and responsive design.
+    </p>
+  </div>
 
-          {/* Project 2 */}
-          <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
-            <h3 className="text-xl font-semibold mb-3">MySukan</h3>
-            <p className="text-gray-300 mb-4">A Real-Time Sport Matchmaking Application.</p>
-          </div>
+ {/* Project 2 */}
+<div className="bg-white/10 backdrop-blur-lg border border-white/20 
+                rounded-2xl p-6 hover:scale-105 hover:shadow-2xl 
+                hover:shadow-white/30 transition-transform 
+                duration-300 ease-out text-center">
 
-          {/* Project 3 */}
-          <div className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
-            <h3 className="text-xl font-semibold mb-3">Blog</h3>
-            <p className="text-gray-300 mb-4">Users can create, edit, and manage posts in a minimal and responsive interface.</p>
-          </div>
-        </div>
+  {/* Glass Effect Logo */}
+  <img 
+    src="/images/projects/MysukanLogo1.png" 
+    alt="MySukan Logo" 
+    className="w-24 h-24 mx-auto mb-4 object-cover 
+               rounded-2xl shadow-lg 
+               bg-white/20 backdrop-blur-md 
+               hover:shadow-white/40 transition"
+  />
+
+  <h3 className="text-xl font-semibold mb-3">MySukan</h3>
+  <p className="text-gray-300 mb-4">
+    A Real-Time Sport Matchmaking Application.
+  </p>
+</div>
+
+
+
+  {/* Project 3 */}
+  <div className="bg-white/10 backdrop-blur-lg border border-white/20 
+                  rounded-2xl p-6 hover:scale-105 hover:shadow-2xl 
+                  hover:shadow-white/30 transition-transform 
+                  duration-300 ease-out text-center">
+    <h1 className="text-3xl font-semibold">
+      Blog
+      <span className="text-blue-500 mb-20">Azam</span>
+    </h1>
+
+    <h3 className="text-xl font-semibold mb-3">Blog Website</h3>
+    <p className="text-gray-300 mb-4">
+      Users can create, edit, and manage posts in a minimal and responsive interface.
+    </p>
+  </div>
+</div>
+
       </section>
       
       {/* About Section */}
       <section ref={aboutRef} className="flex flex-col items-center justify-center h-screen text-white px-4">
         <h2 className="text-4xl font-bold mb-12">About</h2>
+      
       </section>
 
       {/* Contact Section */}
       <section ref={contactRef} className="flex flex-col items-center justify-center h-screen text-white px-4">
         <h2 className="text-4xl font-bold mb-12">Contact</h2>
+    <div className="flex gap-4">
+          
+          <a href="/contact" className="px-4 py-2 rounded-lg border border-input hover:bg-accent hover:text-accent-foreground transition">
+            Contact Me
+          </a>
+        </div>
       </section>
     </main>
   );
