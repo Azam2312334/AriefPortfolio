@@ -54,7 +54,7 @@ export default function Home() {
         </p>
 
         <p ref={descRef} className="max-w-xl text-center leading-relaxed mb-8 text-gray-200">
-          I'm a passionate developer who loves building modern web applications
+          I&apos;m a passionate developer who loves building modern web applications
           with Next.js, React, and cutting-edge technologies. My goal is to create
           engaging, user-friendly digital experiences.
         </p>
