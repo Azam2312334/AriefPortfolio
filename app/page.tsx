@@ -344,7 +344,7 @@ export default function Home() {
           <div className="flex-1 pr-12">
             {/* Small intro text */}
             <p className="text-sm text-gray-400 mb-4 uppercase tracking-wider">
-              HI THERE! I'M ARIEF AZAM
+              ARIEF AZAM
             </p>
 
             {/* Main heading */}
