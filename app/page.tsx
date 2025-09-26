@@ -546,7 +546,17 @@ export default function Home() {
               const scrollLeft = container.scrollLeft;
               let isDown = true;
 
-              const handleMouseMove = (e) => {
+              interface TimelineContainer extends HTMLDivElement {
+                classList: DOMTokenList;
+                style: CSSStyleDeclaration;
+                scrollLeft: number;
+              }
+
+              interface MouseEventWithPageX extends MouseEvent {
+                pageX: number;
+              }
+
+              const handleMouseMove = (e: MouseEventWithPageX) => {
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - container.offsetLeft;
