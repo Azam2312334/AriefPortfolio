@@ -526,9 +526,281 @@ export default function Home() {
       {/* About Section */}
       <section
         ref={aboutRef}
-        className="flex flex-col items-center justify-center h-screen text-white px-4"
+        className="flex flex-col items-center justify-center min-h-screen text-white px-4 py-4"
       >
-        <h2 className="text-4xl font-bold mb-12">About</h2>
+        <h2 className="text-4xl font-bold mb-0 -mb-2">About Me</h2>
+        <div className="w-full max-w-7xl mt-0 p-0 -mt-2">
+          {/* Timeline Container - Click and Drag Scroll */}
+          <div
+            className="timeline-container relative overflow-x-auto cursor-grab"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+            onMouseDown={(e) => {
+              const container = e.currentTarget;
+              container.classList.add("active");
+              container.style.cursor = "grabbing";
+
+              const startX = e.pageX - container.offsetLeft;
+              const scrollLeft = container.scrollLeft;
+              let isDown = true;
+
+              interface TimelineContainer extends HTMLDivElement {
+                classList: DOMTokenList;
+                style: CSSStyleDeclaration;
+                scrollLeft: number;
+              }
+
+              interface MouseEventWithPageX extends MouseEvent {
+                pageX: number;
+              }
+
+              const handleMouseMove = (e: MouseEventWithPageX) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+              };
+
+              const handleMouseUp = () => {
+                isDown = false;
+                container.classList.remove("active");
+                container.style.cursor = "grab";
+                document.removeEventListener("mousemove", handleMouseMove);
+                document.removeEventListener("mouseup", handleMouseUp);
+              };
+
+              const handleMouseLeave = () => {
+                if (isDown) {
+                  isDown = false;
+                  container.classList.remove("active");
+                  container.style.cursor = "grab";
+                  document.removeEventListener("mousemove", handleMouseMove);
+                  document.removeEventListener("mouseup", handleMouseUp);
+                }
+              };
+
+              document.addEventListener("mousemove", handleMouseMove);
+              document.addEventListener("mouseup", handleMouseUp);
+              container.addEventListener("mouseleave", handleMouseLeave);
+            }}
+          >
+            <div className="relative">
+              {/* Horizontal Timeline Line - continuous like vertical version */}
+              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-y-1/2 z-0"></div>
+
+              {/* Timeline Items Container */}
+              <div className="flex gap-16 px-8 min-w-max py-0">
+                {/* Timeline Item 1 - Foundation Studies (Bottom) */}
+                <div className="relative flex flex-col items-center w-64 flex-shrink-0">
+                  {/* Dot on the line */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  {/* Card below the line */}
+                  <div className="w-full mt-100 z-10">
+                    <div className="mt-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                      <h3 className="text-lg font-semibold mb-2 text-center">
+                        Foundation Studies
+                      </h3>
+                      <div className="flex justify-center">
+                        <img
+                          src="/images/projects/kms.png"
+                          alt="kms Logo"
+                          className="w-30 h-30 object-contain mx-auto"
+                        />
+                      </div>
+
+                      <p className="text-green-400 mt-1 mb-1 text-center text-sm">
+                        Selangor Matriculation College
+                      </p>
+                      <p className="text-gray-300 text-xs text-center mb-2">
+                        Information Technology - Computer Science
+                      </p>
+                      <p className="text-gray-400 text-xs text-center mb-3">
+                        Completed foundation studies in Information Technology
+                        in computer science, learned the fundamentals of
+                        programming, problem-solving, and IT concepts that built
+                        a strong base for further studies.
+                      </p>
+                    </div>
+                    {/* Year Label */}
+                    <div className="mt-1 text-center">
+                      <span className="text-gray-400 text-sm font-medium">
+                        2018
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Timeline Item 2 - Degree Studies (Top) */}
+                <div className="relative flex flex-col items-center w-64 flex-shrink-0">
+                  {/* Card above the line */}
+                  <div className="w-full mb-96 z-10">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                      <h3 className="text-lg font-semibold mb-1 text-center">
+                        Degree Studies
+                      </h3>
+                      <div className="flex justify-center">
+                        <img
+                          src="/images/projects/unikl.webp"
+                          alt="unikl Logo"
+                          className="w-full h-full object-contain mx-auto bg-white rounded"
+                        />
+                      </div>
+                      <p className="text-blue-400 mt-1 mb-1 text-center text-sm">
+                        Universiti Kuala Lumpur MIIT
+                      </p>
+                      <p className="text-gray-300 text-xs text-center mb-2">
+                        Bachelor Degree in Software Engineering
+                      </p>
+                      <p className="text-gray-400 text-xs text-center">
+                        Pursuing a Bachelor’s degree in Software Engineering,
+                        specializing in full-stack development and modern
+                        programming practices, while gaining hands-on experience
+                        in building applications with technologies such as React
+                        Native, Node.js, and Firebase.
+                      </p>
+                    </div>
+                    {/* Year Label */}
+                    <div className="mt-1 text-center">
+                      <span className="text-gray-400 text-sm font-medium">
+                        2022
+                      </span>
+                    </div>
+                  </div>
+                  {/* Dot on the line */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                </div>
+
+                {/* Timeline Item 3 - Web Development (Bottom) */}
+                <div className="relative flex flex-col items-center w-64 flex-shrink-0">
+                  {/* Dot on the line */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  {/* Card below the line, with gap from dot */}
+                  <div className="w-full mt-103 z-10">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                      <h3 className="text-lg font-semibold mb-1 text-center">
+                        Internship
+                      </h3>
+                      <div className="mt-5 mb-5 flex justify-center">
+                        <img
+                          src="/images/projects/mdec.png"
+                          alt="mdec Logo"
+                          className="w-full h-full object-contain mx-auto "
+                        />
+                      </div>
+                      <p className="text-yellow-400 mb-1 text-center text-sm">
+                        Malaysia Digital Economy Corporation
+                      </p>
+                      <p className="text-gray-400 text-xs text-center mb-3">
+                        Completed internship at MDEC and gained hands-on
+                        experience in modern web development frameworks such as
+                        Next.js and React. Worked with JSON data integration,
+                        participated in sprint-based tasks, and practiced Agile
+                        methodologies, including ticketing systems, to deliver
+                        and manage projects efficiently.
+                      </p>
+                    </div>
+                    {/* Year Label */}
+                    <div className="mt-4 text-center">
+                      <span className="text-gray-400 text-sm font-medium">
+                        2025
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Timeline Item 4 - Skills & Expertise (Top) */}
+                <div className="relative flex flex-col items-center w-64 flex-shrink-0">
+                  {/* Card above the line, with gap from dot */}
+                  <div className="w-full mb-96 z-10">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                      <h3 className="text-lg font-semibold mb-2 text-center">
+                        Junior Developer
+                      </h3>
+                      <p className="text-purple-400 mb-1 text-center text-sm">
+                        -
+                      </p>
+                      <p className="text-gray-300 text-xs text-center mb-2">
+                        -
+                      </p>
+                      <p className="text-gray-400 text-xs text-center mb-3">
+                        -
+                      </p>
+                    </div>
+                    {/* Year Label */}
+                    <div className="mt-4 text-center">
+                      <span className="text-gray-400 text-sm font-medium">
+                        -
+                      </span>
+                    </div>
+                  </div>
+                  {/* Dot on the line */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                </div>
+
+                {/* Timeline Item 5 - Future Project (Bottom) */}
+                <div className="relative flex flex-col items-center w-64 flex-shrink-0">
+                  {/* Dot on the line */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  {/* Card below the line, with gap from dot */}
+                  <div className="w-full mt-96 z-10">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                      <h3 className="text-lg font-semibold mb-2 text-center">
+                        Software Architect
+                      </h3>
+                      <p className="text-cyan-400 mb-1 text-center text-sm">
+                        future aim
+                      </p>
+                      <p className="text-gray-300 text-xs text-center mb-2">
+                        -
+                      </p>
+                      <p className="text-gray-400 text-xs text-center mb-3">
+                        planning, designing, and solving system-level problems.
+                      </p>
+                    </div>
+                    {/* Year Label */}
+                    <div className="mt-4 text-center">
+                      <span className="text-gray-400 text-sm font-medium">
+                        -
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Drag Indicator */}
+          <div className="flex justify-center mt-0 gap-4 mb-0 -mt-2">
+            <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <span className="hidden sm:inline">
+                ← Drag to explore timeline →
+              </span>
+              <span className="sm:hidden">← Swipe to explore →</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-12 text-center max-w-2xl mx-auto">
+          <p className="text-gray-300 leading-relaxed">
+            Currently available for opportunities and excited to work on
+            innovative projects that challenge my skills and create meaningful
+            user experiences.
+          </p>
+        </div>
       </section>
 
       {/* Contact Section */}

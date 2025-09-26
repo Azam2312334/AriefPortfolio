@@ -121,4 +121,25 @@
   }
 }
 
+/* Hide scrollbar completely for timeline container */
+.timeline-container::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+  /* Allow vertical expansion for proper card positioning */
+  min-height: 600px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* Prevent text selection during drag */
+.timeline-container.active {
+  user-select: none;
+  cursor: grabbing !important;
+}
+
 
