@@ -63,7 +63,7 @@ export default function Home() {
     // Refresh ScrollTrigger on resize to handle mobile properly
     ScrollTrigger.refresh();
 
-    // Hero Section
+    // Hero Section - with reduced scrub resistance
     gsap.fromTo(
       descRef1.current,
       { opacity: 0, y: 50 },
@@ -75,7 +75,8 @@ export default function Home() {
           trigger: descRef1.current,
           start: isMobile ? "top 90%" : "top 80%",
           end: isMobile ? "bottom 30%" : "bottom 20%",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
         },
       }
     );
@@ -92,7 +93,8 @@ export default function Home() {
         scrollTrigger: {
           trigger: projectsRef.current,
           start: isMobile ? "top 85%" : "top 80%",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
         },
       }
     );
@@ -109,7 +111,8 @@ export default function Home() {
         scrollTrigger: {
           trigger: aboutRef.current,
           start: isMobile ? "top 85%" : "top 80%",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
         },
       }
     );
@@ -126,7 +129,8 @@ export default function Home() {
         scrollTrigger: {
           trigger: contactRef.current,
           start: isMobile ? "top 85%" : "top 80%",
-          toggleActions: "restart reverse restart reverse",
+          toggleActions: "play none none reverse",
+          invalidateOnRefresh: true,
         },
       }
     );
