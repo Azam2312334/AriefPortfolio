@@ -17,6 +17,7 @@ export default function Home() {
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Check screen size and handle scroll behavior
   useEffect(() => {
@@ -37,7 +38,19 @@ export default function Home() {
     };
   }, []);
 
+  // Loading effect
   useEffect(() => {
+    // Simulate loading time for smooth UX
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return; // Don't run animations while loading
+
     // Kill any existing animations and ScrollTriggers
     gsap.killTweensOf(".intro-heading");
     gsap.killTweensOf(".intro-line");
@@ -160,7 +173,7 @@ export default function Home() {
       gsap.killTweensOf(".intro-heading");
       gsap.killTweensOf(".intro-line");
     };
-  }, [isMobile]); // Re-run when screen size changes
+  }, [isMobile, isLoading]); // Re-run when screen size changes or loading completes
 
   function Model() {
     const { scene } = useGLTF("/models/scene.gltf");
@@ -180,12 +193,99 @@ export default function Home() {
     );
   }
 
+  // Loading Skeleton Component
+  if (isLoading) {
+    return (
+      <main
+        className="relative min-h-screen overflow-x-hidden"
+        style={{
+          background:
+            "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
+        }}
+      >
+        {/* Starfield Background */}
+        <div className="fixed inset-0 pointer-events-none">
+          <svg
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            style={{ opacity: isMobile ? 0.2 : 0.3 }}
+          >
+            <circle cx="12" cy="15" r="0.15" fill="rgba(255,255,255,0.8)" />
+            <circle cx="28" cy="25" r="0.1" fill="rgba(255,255,255,0.6)" />
+            <circle cx="45" cy="20" r="0.15" fill="rgba(255,255,255,0.9)" />
+            <circle cx="68" cy="35" r="0.1" fill="rgba(255,255,255,0.7)" />
+            <circle cx="85" cy="18" r="0.15" fill="rgba(255,255,255,0.5)" />
+          </svg>
+        </div>
+
+        {/* Loading Skeleton */}
+        <section className="relative flex flex-col lg:items-center lg:justify-center min-h-screen text-white px-4 py-8 lg:py-0">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl lg:pt-20 pt-16 pb-8 lg:pb-0">
+            {/* Left side skeleton */}
+            <div className="flex-1 lg:pr-12 order-2 lg:order-1">
+              {/* Small intro text skeleton */}
+              <div className="h-4 w-24 bg-white/10 rounded animate-pulse mb-4 mx-auto lg:mx-0"></div>
+
+              {/* Main heading skeleton */}
+              <div className="h-12 lg:h-16 w-3/4 bg-white/10 rounded animate-pulse mb-6 mx-auto lg:mx-0"></div>
+
+              {/* Contact info skeleton */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8 mb-8">
+                <div className="space-y-2">
+                  <div className="h-3 w-16 bg-white/10 rounded animate-pulse mx-auto lg:mx-0"></div>
+                  <div className="h-4 w-32 bg-white/10 rounded animate-pulse mx-auto lg:mx-0"></div>
+                </div>
+                <div className="space-y-2">
+                  <div className="h-3 w-16 bg-white/10 rounded animate-pulse mx-auto lg:mx-0"></div>
+                  <div className="h-4 w-24 bg-white/10 rounded animate-pulse mx-auto lg:mx-0"></div>
+                </div>
+              </div>
+
+              {/* Description skeleton */}
+              <div className="space-y-4 mb-8 max-w-lg mx-auto lg:mx-0">
+                <div className="h-4 w-full bg-white/10 rounded animate-pulse"></div>
+                <div className="h-4 w-5/6 bg-white/10 rounded animate-pulse"></div>
+                <div className="h-4 w-4/5 bg-white/10 rounded animate-pulse"></div>
+              </div>
+
+              {/* Buttons skeleton */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <div className="h-12 w-32 bg-white/10 rounded-lg animate-pulse"></div>
+                <div className="h-12 w-32 bg-white/10 rounded-lg animate-pulse"></div>
+              </div>
+            </div>
+
+            {/* Right side - Profile photo skeleton */}
+            <div className="flex-shrink-0 relative order-1 lg:order-2 mb-8 lg:mb-0 flex justify-center">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full bg-white/10 animate-pulse"></div>
+            </div>
+          </div>
+        </section>
+
+        {/* Loading indicator */}
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white/60 text-sm">
+          <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
+          <div
+            className="w-2 h-2 bg-white/60 rounded-full animate-bounce"
+            style={{ animationDelay: "0.2s" }}
+          ></div>
+          <div
+            className="w-2 h-2 bg-white/60 rounded-full animate-bounce"
+            style={{ animationDelay: "0.4s" }}
+          ></div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main
       className="relative min-h-screen overflow-x-hidden"
       style={{
         background:
           "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
+        touchAction: "pan-y pinch-zoom", // Improve mobile scrolling
       }}
     >
       {/* Starfield with connecting lines - Full Page */}
@@ -594,6 +694,7 @@ export default function Home() {
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
             }}
             onMouseDown={(e) => {
               const container = e.currentTarget;
@@ -643,7 +744,7 @@ export default function Home() {
               const handleTouchMove = (e: TouchEvent) => {
                 const touch = e.touches[0];
                 const x = touch.clientX;
-                const walk = (startX - x) * 2;
+                const walk = (startX - x) * 1.5; // Reduced multiplier for smoother mobile scrolling
                 container.scrollLeft = scrollLeft + walk;
               };
 
@@ -950,7 +1051,7 @@ export default function Home() {
 
         <div className="max-w-2xl mx-auto text-center space-y-6 text-lg text-gray-200">
           <p className="text-xl text-gray-300 mb-8 text-center">
-            I'd love to hear from you! Whether it's a project idea,
+            I&apos;d love to hear from you! Whether it&apos;s a project idea,
             collaboration, or just a friendly hello.
           </p>
           <p className="text-xl text-gray-300 mb-8 text-center">
