@@ -1,52 +1,111 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
- <header className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
+
+  return (
+    <header className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo / Name */}
-        <Link href="/" className="font-bold text-xl">
+        <Link href="/" className="font-bold text-xl" onClick={closeMenu}>
           Arief Azam
         </Link>
 
-        {/* Menu */}
-        <NavigationMenu>
+        {/* Desktop Menu */}
+        <NavigationMenu className="hidden md:block">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/" className="px-4">
-                 Home
+              <Link href="/" className="px-4 hover:text-primary transition">
+                Home
               </Link>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/projects" className="px-4">
-                 Projects
+              <Link
+                href="/projects"
+                className="px-4 hover:text-primary transition"
+              >
+                Projects
               </Link>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/about" className="px-4">
-                 About
+              <Link
+                href="/about"
+                className="px-4 hover:text-primary transition"
+              >
+                About
               </Link>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/contact" className="px-4">
-                 Contact
+              <Link
+                href="/contact"
+                className="px-4 hover:text-primary transition"
+              >
+                Contact
               </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={toggleMenu}
+          className="md:hidden p-2 hover:bg-accent rounded-lg transition"
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isOpen && (
+        <div className="md:hidden border-t bg-background/95 backdrop-blur-sm">
+          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <Link
+              href="/"
+              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              onClick={closeMenu}
+            >
+              Home
+            </Link>
+            <Link
+              href="/projects"
+              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              onClick={closeMenu}
+            >
+              Projects
+            </Link>
+            <Link
+              href="/about"
+              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              onClick={closeMenu}
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              onClick={closeMenu}
+            >
+              Contact
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
-    )
+  );
 }

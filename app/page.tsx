@@ -285,7 +285,6 @@ export default function Home() {
       style={{
         background:
           "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
-        touchAction: "pan-y pinch-zoom", // Improve mobile scrolling
       }}
     >
       {/* Starfield with connecting lines - Full Page */}
@@ -690,13 +689,16 @@ export default function Home() {
         <div className="w-full max-w-7xl mt-4 lg:mt-0">
           {/* Timeline Container - Click and Drag Scroll */}
           <div
-            className="timeline-container relative overflow-x-auto cursor-grab touch-pan-x"
+            className="timeline-container relative overflow-x-auto cursor-grab"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
               WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
+              overscrollBehaviorX: "contain", // Prevent overscroll from affecting parent
             }}
             onMouseDown={(e) => {
+              if (isMobile) return; // Disable drag on mobile, use native touch scroll
+
               const container = e.currentTarget;
               container.classList.add("active");
               container.style.cursor = "grabbing";
@@ -735,40 +737,22 @@ export default function Home() {
               document.addEventListener("mouseup", handleMouseUp);
               container.addEventListener("mouseleave", handleMouseLeave);
             }}
-            onTouchStart={(e) => {
-              const container = e.currentTarget;
-              const touch = e.touches[0];
-              const startX = touch.clientX;
-              const scrollLeft = container.scrollLeft;
-
-              const handleTouchMove = (e: TouchEvent) => {
-                const touch = e.touches[0];
-                const x = touch.clientX;
-                const walk = (startX - x) * 1.5; // Reduced multiplier for smoother mobile scrolling
-                container.scrollLeft = scrollLeft + walk;
-              };
-
-              const handleTouchEnd = () => {
-                container.removeEventListener("touchmove", handleTouchMove);
-                container.removeEventListener("touchend", handleTouchEnd);
-              };
-
-              container.addEventListener("touchmove", handleTouchMove, {
-                passive: true,
-              });
-              container.addEventListener("touchend", handleTouchEnd);
-            }}
           >
             <div className="relative">
-              {/* Horizontal Timeline Line - continuous like vertical version */}
-              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-y-1/2 z-0"></div>
-
               {/* Timeline Items Container */}
               <div
                 className={`flex ${
                   isMobile ? "gap-8" : "gap-16"
-                } px-4 lg:px-8 min-w-max py-0`}
+                } px-4 lg:px-8 min-w-max py-0 relative`}
               >
+                {/* Horizontal Timeline Line - behind all items */}
+                <div
+                  className="absolute top-1/2 h-0.5 bg-white/30 -translate-y-1/2 z-0 pointer-events-none"
+                  style={{
+                    left: isMobile ? "7rem" : "8rem",
+                    right: isMobile ? "7rem" : "8rem",
+                  }}
+                ></div>
                 {/* Timeline Item 1 - Foundation Studies (Bottom) */}
                 <div
                   className={`relative flex flex-col items-center ${
