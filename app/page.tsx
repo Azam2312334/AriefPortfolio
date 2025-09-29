@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Mail, Linkedin, Github } from "lucide-react";
 
 import { Canvas } from "@react-three/fiber"; // three js
 import { OrbitControls, useGLTF } from "@react-three/drei";
@@ -931,18 +932,51 @@ export default function Home() {
         ref={contactRef}
         className="flex flex-col items-center justify-center min-h-screen lg:h-screen text-white px-4 py-12 lg:py-8"
       >
-        <h2 className="text-3xl lg:text-4xl font-bold mb-12">Contact</h2>
-        <div className="flex gap-4">
-          <a
-            href="/contact"
-            className="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-md 
-               border border-white/30 
-               text-white 
-               hover:bg-white/30 
-               transition text-sm lg:text-base"
-          >
-            Contact Me
-          </a>
+        <h2 className="text-3xl font-extrabold mb-4 text-center">
+          Get in Touch
+        </h2>
+
+        <div className="max-w-2xl mx-auto text-center space-y-6 text-lg text-gray-200">
+          <p className="text-xl text-gray-300 mb-8 text-center">
+            I’d love to hear from you! Whether it’s a project idea,
+            collaboration, or just a friendly hello.
+          </p>
+          <p className="text-xl text-gray-300 mb-8 text-center">
+            Feel free to reach out
+          </p>
+
+          <div className="space-y-4">
+            <p className="flex items-center justify-center gap-2">
+              <Mail className="w-5 h-5 text-blue-500" />
+              <a
+                href="mailto:ariefnurazams@gmail.com"
+                className="hover:underline"
+              >
+                ariefnurazams@gmail.com
+              </a>
+            </p>
+            <p className="flex items-center justify-center gap-2">
+              <Linkedin className="w-5 h-5 text-blue-500" />
+              <a
+                href="https://www.linkedin.com/in/arief-azams/"
+                target="_blank"
+                className="hover:underline"
+              >
+                linkedin.com/in/arief-azams
+              </a>
+            </p>
+
+            <p className="flex items-center justify-center gap-2">
+              <Github className="w-5 h-5 text-blue-500" />
+              <a
+                href="https://github.com/Azam2312334"
+                target="_blank"
+                className="hover:underline"
+              >
+                github.com/Azam2312334
+              </a>
+            </p>
+          </div>
         </div>
       </section>
     </main>
