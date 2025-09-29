@@ -16,7 +16,6 @@ export default function Home() {
   const projectsRef = useRef(null);
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
-  const tl = gsap.timeline();
   const [isMobile, setIsMobile] = useState(false);
 
   // Check screen size and handle scroll behavior
@@ -39,6 +38,15 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    // Kill any existing animations and ScrollTriggers
+    gsap.killTweensOf(".intro-heading");
+    gsap.killTweensOf(".intro-line");
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+    // Reset intro elements to visible state
+    gsap.set(".intro-heading", { opacity: 1, y: 0 });
+    gsap.set(".intro-line", { opacity: 1, y: 0 });
+
     // Refresh ScrollTrigger on resize to handle mobile properly
     ScrollTrigger.refresh();
 
@@ -111,15 +119,17 @@ export default function Home() {
     );
 
     // Heading animation first
-    tl.from(".intro-heading", {
+    const introTimeline = gsap.timeline();
+    introTimeline.from(".intro-heading", {
       y: 30,
       opacity: 0,
       duration: 0.8,
       ease: "power3.out",
+      clearProps: "all",
     });
 
     // Line-by-line reveal
-    tl.from(
+    introTimeline.from(
       ".intro-line",
       {
         y: 20,
@@ -127,7 +137,7 @@ export default function Home() {
         stagger: 0.3,
         duration: 0.8,
         ease: "power3.out",
-        overwrite: "auto",
+        clearProps: "all",
       },
       "+=0.2"
     );
@@ -147,6 +157,8 @@ export default function Home() {
     // Clean up ScrollTrigger instances on unmount
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      gsap.killTweensOf(".intro-heading");
+      gsap.killTweensOf(".intro-line");
     };
   }, [isMobile]); // Re-run when screen size changes
 
@@ -938,7 +950,7 @@ export default function Home() {
 
         <div className="max-w-2xl mx-auto text-center space-y-6 text-lg text-gray-200">
           <p className="text-xl text-gray-300 mb-8 text-center">
-            I’d love to hear from you! Whether it’s a project idea,
+            I'd love to hear from you! Whether it's a project idea,
             collaboration, or just a friendly hello.
           </p>
           <p className="text-xl text-gray-300 mb-8 text-center">
