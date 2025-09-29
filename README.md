@@ -9,7 +9,7 @@ This repository showcases my projects, experiments, and learning journey in soft
 
 ## 🌟 About Me
 - 🎓 Final-year Software Engineering student
-- 📱 Building **sports matchmaking apps (MySukan)** and mental health platforms
+- 📱 Building **sports matchmaking apps (MySukan)**
 - 🔍 Interested in **frontend development, backend integration, and generative AI in education**
 - 📚 Always learning new tech like **Next.js 15, TailwindCSS, Prisma, Firebase**
 - 🏉 Big fan of community, teamwork, and creative coding
