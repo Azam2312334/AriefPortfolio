@@ -5,21 +5,22 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, Linkedin, Github } from "lucide-react";
 
-import { Canvas } from "@react-three/fiber"; // three js
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 
-gsap.registerPlugin(ScrollTrigger); // register plugin
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  // variables
   const descRef1 = useRef(null);
   const projectsRef = useRef(null);
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const circleRef = useRef<HTMLDivElement>(null);
 
-  // Check screen size and handle scroll behavior
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -28,7 +29,6 @@ export default function Home() {
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
 
-    // Smooth scroll behavior for mobile
     if (typeof window !== "undefined") {
       document.documentElement.style.scrollBehavior = "smooth";
     }
@@ -38,9 +38,38 @@ export default function Home() {
     };
   }, []);
 
-  // Loading effect
   useEffect(() => {
-    // Simulate loading time for smooth UX
+    const handleScroll = () => {
+      if (!circleRef.current || !heroContentRef.current) return;
+
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      // Just 1 viewport for zoom
+      const progress = Math.min(scrollY / windowHeight, 1);
+      setScrollProgress(progress);
+
+      // Keep the SAME slow pace but reach full screen
+      // Linear progression to 50x instead of 3x
+      const scale = 1 + progress * 49;
+
+      // Content fades out extremely gradually
+      const contentOpacity = 1 - Math.pow(progress, 5);
+
+      // Both circle and content use same scale for synchronized zoom
+      // Use transform without translate to prevent movement
+      circleRef.current.style.transform = `scale(${scale})`;
+      circleRef.current.style.opacity = `${Math.max(0, 1 - progress)}`;
+
+      heroContentRef.current.style.transform = `scale(${scale})`;
+      heroContentRef.current.style.opacity = `${Math.max(0, contentOpacity)}`;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
@@ -49,21 +78,17 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isLoading) return; // Don't run animations while loading
+    if (isLoading) return;
 
-    // Kill any existing animations and ScrollTriggers
     gsap.killTweensOf(".intro-heading");
     gsap.killTweensOf(".intro-line");
     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
-    // Reset intro elements to visible state
     gsap.set(".intro-heading", { opacity: 1, y: 0 });
     gsap.set(".intro-line", { opacity: 1, y: 0 });
 
-    // Refresh ScrollTrigger on resize to handle mobile properly
     ScrollTrigger.refresh();
 
-    // Hero Section - with reduced scrub resistance
     gsap.fromTo(
       descRef1.current,
       { opacity: 0, y: 50 },
@@ -81,7 +106,6 @@ export default function Home() {
       }
     );
 
-    // Projects Section
     gsap.fromTo(
       projectsRef.current,
       { opacity: 0, y: 30 },
@@ -93,13 +117,13 @@ export default function Home() {
         scrollTrigger: {
           trigger: projectsRef.current,
           start: isMobile ? "top 85%" : "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
           invalidateOnRefresh: true,
+          once: true,
         },
       }
     );
 
-    // About Section
     gsap.fromTo(
       aboutRef.current,
       { opacity: 0, y: 30 },
@@ -111,13 +135,13 @@ export default function Home() {
         scrollTrigger: {
           trigger: aboutRef.current,
           start: isMobile ? "top 85%" : "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
           invalidateOnRefresh: true,
+          once: true,
         },
       }
     );
 
-    // Contact Section
     gsap.fromTo(
       contactRef.current,
       { opacity: 0, y: 30 },
@@ -129,13 +153,13 @@ export default function Home() {
         scrollTrigger: {
           trigger: contactRef.current,
           start: isMobile ? "top 85%" : "top 80%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none none",
           invalidateOnRefresh: true,
+          once: true,
         },
       }
     );
 
-    // Heading animation first
     const introTimeline = gsap.timeline();
     introTimeline.from(".intro-heading", {
       y: 30,
@@ -145,7 +169,6 @@ export default function Home() {
       clearProps: "all",
     });
 
-    // Line-by-line reveal
     introTimeline.from(
       ".intro-line",
       {
@@ -159,7 +182,6 @@ export default function Home() {
       "+=0.2"
     );
 
-    // Highlight sweep effect (loops gently)
     gsap.to(".intro-line", {
       backgroundPosition: "200% 0",
       duration: 2.5,
@@ -171,13 +193,12 @@ export default function Home() {
       },
     });
 
-    // Clean up ScrollTrigger instances on unmount
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       gsap.killTweensOf(".intro-heading");
       gsap.killTweensOf(".intro-line");
     };
-  }, [isMobile, isLoading]); // Re-run when screen size changes or loading completes
+  }, [isMobile, isLoading]);
 
   function Model() {
     const { scene } = useGLTF("/models/scene.gltf");
@@ -197,7 +218,6 @@ export default function Home() {
     );
   }
 
-  // Loading Skeleton Component
   if (isLoading) {
     return (
       <main
@@ -207,7 +227,6 @@ export default function Home() {
             "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
         }}
       >
-        {/* Starfield Background */}
         <div className="fixed inset-0 pointer-events-none">
           <svg
             className="absolute inset-0 w-full h-full"
@@ -223,18 +242,11 @@ export default function Home() {
           </svg>
         </div>
 
-        {/* Loading Skeleton */}
         <section className="relative flex flex-col lg:items-center lg:justify-center min-h-screen text-white px-4 py-8 lg:py-0">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl lg:pt-20 pt-16 pb-8 lg:pb-0">
-            {/* Left side skeleton */}
             <div className="flex-1 lg:pr-12 order-2 lg:order-1">
-              {/* Small intro text skeleton */}
               <div className="h-4 w-24 bg-white/10 rounded animate-pulse mb-4 mx-auto lg:mx-0"></div>
-
-              {/* Main heading skeleton */}
               <div className="h-12 lg:h-16 w-3/4 bg-white/10 rounded animate-pulse mb-6 mx-auto lg:mx-0"></div>
-
-              {/* Contact info skeleton */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8 mb-8">
                 <div className="space-y-2">
                   <div className="h-3 w-16 bg-white/10 rounded animate-pulse mx-auto lg:mx-0"></div>
@@ -245,29 +257,22 @@ export default function Home() {
                   <div className="h-4 w-24 bg-white/10 rounded animate-pulse mx-auto lg:mx-0"></div>
                 </div>
               </div>
-
-              {/* Description skeleton */}
               <div className="space-y-4 mb-8 max-w-lg mx-auto lg:mx-0">
                 <div className="h-4 w-full bg-white/10 rounded animate-pulse"></div>
                 <div className="h-4 w-5/6 bg-white/10 rounded animate-pulse"></div>
                 <div className="h-4 w-4/5 bg-white/10 rounded animate-pulse"></div>
               </div>
-
-              {/* Buttons skeleton */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <div className="h-12 w-32 bg-white/10 rounded-lg animate-pulse"></div>
                 <div className="h-12 w-32 bg-white/10 rounded-lg animate-pulse"></div>
               </div>
             </div>
-
-            {/* Right side - Profile photo skeleton */}
             <div className="flex-shrink-0 relative order-1 lg:order-2 mb-8 lg:mb-0 flex justify-center">
               <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full bg-white/10 animate-pulse"></div>
             </div>
           </div>
         </section>
 
-        {/* Loading indicator */}
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white/60 text-sm">
           <div className="w-2 h-2 bg-white/60 rounded-full animate-bounce"></div>
           <div
@@ -291,7 +296,6 @@ export default function Home() {
           "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
       }}
     >
-      {/* Starfield with connecting lines - Full Page */}
       <div className="fixed inset-0 pointer-events-none">
         <svg
           className="absolute inset-0 w-full h-full"
@@ -299,7 +303,6 @@ export default function Home() {
           preserveAspectRatio="none"
           style={{ opacity: isMobile ? 0.2 : 0.3 }}
         >
-          {/* Dots - using percentage positions */}
           <circle cx="12" cy="15" r="0.15" fill="rgba(255,255,255,0.8)" />
           <circle cx="28" cy="25" r="0.1" fill="rgba(255,255,255,0.6)" />
           <circle cx="45" cy="20" r="0.15" fill="rgba(255,255,255,0.9)" />
@@ -326,7 +329,6 @@ export default function Home() {
           <circle cx="25" cy="5" r="0.15" fill="rgba(255,255,255,0.8)" />
           <circle cx="58" cy="8" r="0.1" fill="rgba(255,255,255,0.4)" />
 
-          {/* Connecting Lines */}
           <line
             x1="12"
             y1="15"
@@ -482,117 +484,110 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative flex flex-col lg:items-center lg:justify-center min-h-screen text-white px-4 py-8 lg:py-0">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl lg:pt-20 pt-16 pb-8 lg:pb-0">
-          {/* Left side - Text Content */}
-          <div className="flex-1 lg:pr-12 order-2 lg:order-1">
-            {/* Small intro text */}
-            <p className="text-sm text-gray-400 mb-4 uppercase tracking-wider text-center lg:text-left">
-              ARIEF AZAM
-            </p>
+      {/* Hero section wrapper with padding for scroll distance */}
+      <div style={{ height: "100vh", position: "relative" }}>
+        <section
+          className="fixed top-0 left-0 w-full h-screen flex flex-col lg:items-center lg:justify-center text-white px-4 overflow-hidden"
+          style={{
+            zIndex: scrollProgress < 0.95 ? 100 : 1,
+            pointerEvents: scrollProgress >= 0.95 ? "none" : "auto",
+          }}
+        >
+          <div
+            ref={circleRef}
+            className="fixed lg:left-1/2 left-[75%] top-[40%] lg:top-1/2 w-32 h-32 lg:w-48 lg:h-48 
+                   -translate-x-1/2 -translate-y-1/2 rounded-full 
+                   bg-gradient-radial from-white/20 via-white/10 to-transparent
+                   border-2 border-white/40 shadow-2xl pointer-events-none"
+            style={{
+              transition: "transform 0.05s linear, opacity 0.05s linear",
+              zIndex: 50,
+              boxShadow:
+                "0 0 100px rgba(255,255,255,0.3), inset 0 0 100px rgba(255,255,255,0.1)",
+              transformOrigin: "center center",
+            }}
+          ></div>
 
-            {/* Main heading */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 intro-heading text-center lg:text-left">
-              Full-Stack Developer
-            </h1>
+          <div
+            ref={heroContentRef}
+            className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl relative z-10"
+            style={{
+              transition: "transform 0.05s linear, opacity 0.05s linear",
+              transformOrigin: "center center",
+              willChange: "transform, opacity",
+            }}
+          >
+            <div className="flex-1 lg:pr-12 order-2 lg:order-1">
+              <p className="text-sm text-gray-400 mb-4 uppercase tracking-wider text-center lg:text-left">
+                ARIEF AZAM
+              </p>
 
-            {/* Contact info */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8 mb-8 text-sm">
-              <div className="text-center lg:text-left">
-                <p className="text-gray-400 mb-1">Email</p>
-                <p className="text-xs sm:text-sm break-words">
-                  ariefnurazams@gmail.com
-                </p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 intro-heading text-center lg:text-left">
+                Full-Stack Developer
+              </h1>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-8 mb-8 text-sm">
+                <div className="text-center lg:text-left">
+                  <p className="text-gray-400 mb-1">Email</p>
+                  <p className="text-xs sm:text-sm break-words">
+                    ariefnurazams@gmail.com
+                  </p>
+                </div>
+                <div className="text-center lg:text-left">
+                  <p className="text-gray-400 mb-1">Location</p>
+                  <p>Malaysia</p>
+                </div>
+                <div className="text-center lg:text-left sm:col-span-2 lg:col-span-1">
+                  <p className="text-gray-400 mb-1">Freelance</p>
+                  <p>Available</p>
+                </div>
               </div>
-              <div className="text-center lg:text-left">
-                <p className="text-gray-400 mb-1">Location</p>
-                <p>Malaysia</p>
+
+              <div className="text-left leading-relaxed mb-8 text-gray-200 intro-text max-w-lg mx-auto lg:mx-0">
+                <span className="intro-line block relative cursor-pointer bg-gradient-to-r from-white via-gray-400 to-white bg-[length:200%_100%] bg-clip-text text-transparent transition-transform duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-white/30 mb-4 text-sm lg:text-base">
+                  I am Arief Nur Azam, a Software Engineering student with
+                  hands-on experience in developing and deploying full-stack
+                  applications.
+                </span>
+                <span className="intro-line block relative cursor-pointer bg-gradient-to-r from-white via-gray-400 to-white bg-[length:200%_100%] bg-clip-text text-transparent transition-transform duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-white/30 mb-4 text-sm lg:text-base">
+                  My focus spans both web and mobile development, where I create
+                  scalable and user-friendly solutions.
+                </span>
+                <span className="intro-line block relative cursor-pointer bg-gradient-to-r from-white via-gray-400 to-white bg-[length:200%_100%] bg-clip-text text-transparent transition-transform duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-white/30 text-sm lg:text-base">
+                  I am proficient in working across the stack, from responsive
+                  front-end design to robust back-end systems.
+                </span>
               </div>
-              <div className="text-center lg:text-left sm:col-span-2 lg:col-span-1">
-                <p className="text-gray-400 mb-1">Freelance</p>
-                <p>Available</p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a
+                  href="/projects"
+                  className="px-4 lg:px-6 py-3 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white text-center hover:bg-white/30 transition text-sm lg:text-base"
+                >
+                  View Projects
+                </a>
+                <a
+                  href="/contact"
+                  className="px-4 lg:px-6 py-3 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white text-center hover:bg-white/30 transition text-sm lg:text-base"
+                >
+                  Contact Me
+                </a>
               </div>
             </div>
 
-            {/* Description */}
-            <div className="text-left leading-relaxed mb-8 text-gray-200 intro-text max-w-lg mx-auto lg:mx-0">
-              <span
-                className="intro-line block relative cursor-pointer
-               bg-gradient-to-r from-white via-gray-400 to-white
-               bg-[length:200%_100%] bg-clip-text text-transparent
-               transition-transform duration-300 ease-out
-               hover:scale-105 hover:shadow-lg hover:shadow-white/30 mb-4 text-sm lg:text-base"
-              >
-                I am Arief Nur Azam, a Software Engineering student with
-                hands-on experience in developing and deploying full-stack
-                applications.
-              </span>
-              <span
-                className="intro-line block relative cursor-pointer
-               bg-gradient-to-r from-white via-gray-400 to-white
-               bg-[length:200%_100%] bg-clip-text text-transparent
-               transition-transform duration-300 ease-out
-               hover:scale-105 hover:shadow-lg hover:shadow-white/30 mb-4 text-sm lg:text-base"
-              >
-                My focus spans both web and mobile development, where I create
-                scalable and user-friendly solutions.
-              </span>
-              <span
-                className="intro-line block relative cursor-pointer
-               bg-gradient-to-r from-white via-gray-400 to-white
-               bg-[length:200%_100%] bg-clip-text text-transparent
-               transition-transform duration-300 ease-out
-               hover:scale-105 hover:shadow-lg hover:shadow-white/30 text-sm lg:text-base"
-              >
-                I am proficient in working across the stack, from responsive
-                front-end design to robust back-end systems.
-              </span>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a
-                href="/projects"
-                className="px-4 lg:px-6 py-3 rounded-lg 
-                 bg-white/20 backdrop-blur-md 
-                 border border-white/30 
-                 text-white text-center
-                 hover:bg-white/30 
-                 transition text-sm lg:text-base"
-              >
-                View Projects
-              </a>
-
-              <a
-                href="/contact"
-                className="px-4 lg:px-6 py-3 rounded-lg 
-                 bg-white/20 backdrop-blur-md 
-                 border border-white/30 
-                 text-white text-center
-                 hover:bg-white/30 
-                 transition text-sm lg:text-base"
-              >
-                Contact Me
-              </a>
+            <div className="flex-shrink-0 relative order-1 lg:order-2 mb-8 lg:mb-0 flex justify-center">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-white shadow-lg relative z-10">
+                <img
+                  src="/images/projects/profile.JPEG"
+                  alt="Profile Photo"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
+        </section>
+      </div>
 
-          {/* Right side - Profile photo */}
-          <div className="flex-shrink-0 relative order-1 lg:order-2 mb-8 lg:mb-0 flex justify-center">
-            {/* Profile Photo */}
-            <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-white shadow-lg relative z-10">
-              <img
-                src="/images/projects/profile.JPEG"
-                alt="Profile Photo"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
       <section
         ref={projectsRef}
         className="flex flex-col items-center justify-center min-h-screen lg:h-screen text-white px-4 py-12 lg:py-8"
@@ -601,24 +596,13 @@ export default function Home() {
         <div className="flex gap-4 mb-5">
           <a
             href="/projects"
-            className="px-4 py-2 rounded-lg 
-               bg-white/20 backdrop-blur-md 
-               border border-white/30 
-               text-white 
-               hover:bg-white/30 
-               transition text-sm lg:text-base"
+            className="px-4 py-2 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white hover:bg-white/30 transition text-sm lg:text-base"
           >
             View Projects
           </a>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-6xl w-full">
-          {/* Project 1 */}
-          <div
-            className="bg-white/10 backdrop-blur-lg border border-white/20 
-                  rounded-2xl p-4 lg:p-6 hover:scale-105 hover:shadow-2xl 
-                  hover:shadow-white/30 transition-transform 
-                  duration-300 ease-out text-center"
-          >
+          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 lg:p-6 hover:scale-105 hover:shadow-2xl hover:shadow-white/30 transition-transform duration-300 ease-out text-center">
             <Icon3D />
             <h3 className="text-lg lg:text-xl font-semibold mb-3">Portfolio</h3>
             <p className="text-gray-300 mb-4 text-sm lg:text-base">
@@ -627,13 +611,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Project 2 */}
-          <div
-            className="bg-white/10 backdrop-blur-lg border border-white/20 
-                rounded-2xl p-4 lg:p-6 hover:scale-105 hover:shadow-2xl 
-                hover:shadow-white/30 transition-transform 
-                duration-300 ease-out text-center"
-          >
+          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 lg:p-6 hover:scale-105 hover:shadow-2xl hover:shadow-white/30 transition-transform duration-300 ease-out text-center">
             <div
               className={`${
                 isMobile ? "w-16 h-16" : "w-24 h-24"
@@ -642,35 +620,25 @@ export default function Home() {
               <img
                 src="/images/projects/MysukanLogo1.png"
                 alt="MySukan Logo"
-                className="w-full h-full object-contain
-               scale-[1.3]"
+                className="w-full h-full object-contain scale-[1.3]"
               />
             </div>
-
             <h3 className="text-lg lg:text-xl font-semibold mb-3">MySukan</h3>
             <p className="text-gray-300 mb-4 text-sm lg:text-base">
               A Real-Time Sport Matchmaking Application.
             </p>
           </div>
 
-          {/* Project 3 */}
-          <div
-            className="bg-white/10 backdrop-blur-lg border border-white/20 
-                  rounded-2xl p-4 lg:p-6 hover:scale-105 hover:shadow-2xl 
-                  hover:shadow-white/30 transition-transform 
-                  duration-300 ease-out text-center lg:col-span-2 xl:col-span-1"
-          >
+          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 lg:p-6 hover:scale-105 hover:shadow-2xl hover:shadow-white/30 transition-transform duration-300 ease-out text-center lg:col-span-2 xl:col-span-1">
             <div className="w-16 h-16 lg:w-24 lg:h-24 mx-auto mb-4 flex items-center justify-center">
               <h1
                 className={`${
                   isMobile ? "text-2xl" : "text-3xl"
                 } font-semibold`}
               >
-                Blog
-                <span className="text-blue-500">Azam</span>
+                Blog<span className="text-blue-500">Azam</span>
               </h1>
             </div>
-
             <h3 className="text-lg lg:text-xl font-semibold mb-3">
               Blogging Website
             </h3>
@@ -682,7 +650,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section */}
       <section
         ref={aboutRef}
         className="flex flex-col items-center justify-center min-h-screen text-white px-4 py-12 lg:py-8"
@@ -691,26 +658,22 @@ export default function Home() {
           About Me
         </h2>
         <div className="w-full max-w-7xl mt-4 lg:mt-0">
-          {/* Timeline Container - Click and Drag Scroll */}
           <div
             className="timeline-container relative overflow-x-auto cursor-grab"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
-              overscrollBehaviorX: "contain", // Prevent overscroll from affecting parent
+              WebkitOverflowScrolling: "touch",
+              overscrollBehaviorX: "contain",
             }}
             onMouseDown={(e) => {
-              if (isMobile) return; // Disable drag on mobile, use native touch scroll
-
+              if (isMobile) return;
               const container = e.currentTarget;
               container.classList.add("active");
               container.style.cursor = "grabbing";
-
               const startX = e.pageX - container.offsetLeft;
               const scrollLeft = container.scrollLeft;
               let isDown = true;
-
               const handleMouseMove = (e: MouseEvent) => {
                 if (!isDown) return;
                 e.preventDefault();
@@ -718,7 +681,6 @@ export default function Home() {
                 const walk = (x - startX) * 2;
                 container.scrollLeft = scrollLeft - walk;
               };
-
               const handleMouseUp = () => {
                 isDown = false;
                 container.classList.remove("active");
@@ -726,7 +688,6 @@ export default function Home() {
                 document.removeEventListener("mousemove", handleMouseMove);
                 document.removeEventListener("mouseup", handleMouseUp);
               };
-
               const handleMouseLeave = () => {
                 if (isDown) {
                   isDown = false;
@@ -736,20 +697,17 @@ export default function Home() {
                   document.removeEventListener("mouseup", handleMouseUp);
                 }
               };
-
               document.addEventListener("mousemove", handleMouseMove);
               document.addEventListener("mouseup", handleMouseUp);
               container.addEventListener("mouseleave", handleMouseLeave);
             }}
           >
             <div className="relative">
-              {/* Timeline Items Container */}
               <div
                 className={`flex ${
                   isMobile ? "gap-8" : "gap-16"
                 } px-4 lg:px-8 min-w-max py-0 relative`}
               >
-                {/* Horizontal Timeline Line - behind all items */}
                 <div
                   className="absolute top-1/2 h-0.5 bg-white/30 -translate-y-1/2 z-0 pointer-events-none"
                   style={{
@@ -757,17 +715,15 @@ export default function Home() {
                     right: isMobile ? "7rem" : "8rem",
                   }}
                 ></div>
-                {/* Timeline Item 1 - Foundation Studies (Bottom) */}
+
                 <div
                   className={`relative flex flex-col items-center ${
                     isMobile ? "w-56" : "w-64"
                   } flex-shrink-0`}
                 >
-                  {/* Dot on the line */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
                   </div>
-                  {/* Card below the line */}
                   <div className="w-full mt-110 z-10">
                     <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
                       <h3
@@ -786,7 +742,6 @@ export default function Home() {
                           } object-contain mx-auto`}
                         />
                       </div>
-
                       <p className="text-green-400 mt-1 mb-1 text-center text-sm">
                         Selangor Matriculation College
                       </p>
@@ -804,7 +759,6 @@ export default function Home() {
                         a strong base for further studies.
                       </p>
                     </div>
-                    {/* Year Label */}
                     <div className="mt-4 text-center">
                       <span className="text-gray-400 text-sm font-medium">
                         2018
@@ -813,13 +767,11 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Timeline Item 2 - Degree Studies (Top) */}
                 <div
                   className={`relative flex flex-col items-center ${
                     isMobile ? "w-56" : "w-64"
                   } flex-shrink-0`}
                 >
-                  {/* Card above the line */}
                   <div className="w-full mt-30 z-10">
                     <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
                       <h3
@@ -852,26 +804,22 @@ export default function Home() {
                         Native, Node.js, and Firebase.
                       </p>
                     </div>
-                    {/* Year Label */}
                     <div className="mt-4 text-center">
                       <span className="text-gray-400 text-sm font-medium">
                         2022
                       </span>
                     </div>
                   </div>
-                  {/* Dot on the line */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
                   </div>
                 </div>
 
-                {/* Timeline Item 3 - Internship (Bottom) */}
                 <div
                   className={`relative flex flex-col items-center ${
                     isMobile ? "w-56" : "w-64"
                   } flex-shrink-0`}
                 >
-                  {/* Dot on the line */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
                   </div>
@@ -909,7 +857,6 @@ export default function Home() {
                         and manage projects efficiently.
                       </p>
                     </div>
-                    {/* Year Label */}
                     <div className="mt-4 text-center">
                       <span className="text-gray-400 text-sm font-medium">
                         2025
@@ -918,13 +865,11 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Timeline Item 4 - Junior Developer (Top) */}
                 <div
                   className={`relative flex flex-col items-center ${
                     isMobile ? "w-56" : "w-64"
                   } flex-shrink-0`}
                 >
-                  {/* Card above the line */}
                   <div className="w-full mt-50 z-10">
                     <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
                       <h3
@@ -948,30 +893,25 @@ export default function Home() {
                         -
                       </p>
                     </div>
-                    {/* Year Label */}
                     <div className="mt-4 text-center">
                       <span className="text-gray-400 text-sm font-medium">
                         -
                       </span>
                     </div>
                   </div>
-                  {/* Dot on the line */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
                   </div>
                 </div>
 
-                {/* Timeline Item 5 - Software Architect (Bottom) */}
                 <div
                   className={`relative flex flex-col items-center ${
                     isMobile ? "w-56" : "w-64"
                   } flex-shrink-0`}
                 >
-                  {/* Dot on the line */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
                   </div>
-                  {/* Card below the line */}
                   <div className="w-full mt-90 z-100">
                     <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
                       <h3
@@ -995,7 +935,6 @@ export default function Home() {
                         planning, designing, and solving system-level problems.
                       </p>
                     </div>
-                    {/* Year Label */}
                     <div className="mt-4 text-center">
                       <span className="text-gray-400 text-sm font-medium">
                         -
@@ -1007,7 +946,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Drag Indicator */}
           <div className="flex justify-center mt-6 lg:mt-0 gap-4 mb-4 lg:mb-0">
             <div className="flex items-center gap-2 text-gray-400 text-sm">
               <span className="hidden sm:inline">
@@ -1018,7 +956,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Additional Info */}
         <div className="mt-8 lg:mt-12 text-center max-w-2xl mx-auto">
           <p className="text-gray-300 leading-relaxed text-sm lg:text-base px-4">
             Currently available for opportunities and excited to work on
@@ -1028,7 +965,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section
         ref={contactRef}
         className="flex flex-col items-center justify-center min-h-screen lg:h-screen text-white px-4 py-12 lg:py-8"
@@ -1036,7 +972,6 @@ export default function Home() {
         <h2 className="text-3xl font-extrabold mb-4 text-center">
           Get in Touch
         </h2>
-
         <div className="max-w-2xl mx-auto text-center space-y-6 text-lg text-gray-200">
           <p className="text-xl text-gray-300 mb-8 text-center">
             I&apos;d love to hear from you! Whether it&apos;s a project idea,
@@ -1045,7 +980,6 @@ export default function Home() {
           <p className="text-xl text-gray-300 mb-8 text-center">
             Feel free to reach out
           </p>
-
           <div className="space-y-4">
             <p className="flex items-center justify-center gap-2">
               <Mail className="w-5 h-5 text-blue-500" />
@@ -1066,7 +1000,6 @@ export default function Home() {
                 linkedin.com/in/arief-azams
               </a>
             </p>
-
             <p className="flex items-center justify-center gap-2">
               <Github className="w-5 h-5 text-blue-500" />
               <a

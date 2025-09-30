@@ -16,7 +16,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
+    <header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md border-b z-100">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo / Name */}
         <Link href="/" className="font-bold text-xl" onClick={closeMenu}>
@@ -27,7 +27,10 @@ export default function Navbar() {
         <NavigationMenu className="hidden md:block">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/" className="px-4 hover:text-primary transition">
+              <Link
+                href="/"
+                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
+              >
                 Home
               </Link>
             </NavigationMenuItem>
@@ -35,7 +38,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link
                 href="/projects"
-                className="px-4 hover:text-primary transition"
+                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
               >
                 Projects
               </Link>
@@ -44,7 +47,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link
                 href="/about"
-                className="px-4 hover:text-primary transition"
+                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
               >
                 About
               </Link>
@@ -53,7 +56,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link
                 href="/contact"
-                className="px-4 hover:text-primary transition"
+                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
               >
                 Contact
               </Link>
@@ -73,32 +76,32 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden border-t bg-background/95 backdrop-blur-sm">
+        <div className="md:hidden border-t bg-white/90 backdrop-blur-md">
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link
               href="/"
-              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
               onClick={closeMenu}
             >
               Home
             </Link>
             <Link
               href="/projects"
-              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
               onClick={closeMenu}
             >
               Projects
             </Link>
             <Link
               href="/about"
-              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
               onClick={closeMenu}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="px-4 py-2 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
               onClick={closeMenu}
             >
               Contact
