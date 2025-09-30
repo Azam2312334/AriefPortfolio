@@ -16,7 +16,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md border-b z-100">
+    <header className="fixed top-0 left-0 w-full bg-white border-b z-50">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo / Name */}
         <Link href="/" className="font-bold text-xl" onClick={closeMenu}>
@@ -76,7 +76,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden border-t bg-white/90 backdrop-blur-md">
+        <div className="md:hidden border-t bg-white">
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link
               href="/"
