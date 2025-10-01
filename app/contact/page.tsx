@@ -1,14 +1,49 @@
 "use client";
 
 import { Mail, Linkedin, Github } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Contact() {
   const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const contactMethods = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: "ariefnurazams@gmail.com",
+      href: "mailto:ariefnurazams@gmail.com",
+      gradient: "from-blue-500/20 to-cyan-500/20",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      value: "linkedin.com/in/arief-azams",
+      href: "https://www.linkedin.com/in/arief-azams/",
+      gradient: "from-blue-600/20 to-indigo-500/20",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      value: "github.com/Azam2312334",
+      href: "https://github.com/Azam2312334",
+      gradient: "from-gray-500/20 to-slate-600/20",
+    },
+  ];
+
   return (
     <main
-      className="relative min-h-screen flex flex-col justify-center items-center px-4 text-white"
+      className="relative min-h-screen flex flex-col justify-center items-center px-4 text-white py-12 sm:py-16"
       style={{
         background:
           "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
@@ -204,48 +239,71 @@ export default function Contact() {
           />
         </svg>
       </div>
-      <h1 className="text-5xl font-extrabold mb-4 text-center">Get in Touch</h1>
 
-      <div className="max-w-2xl mx-auto text-center space-y-6 text-lg text-gray-200">
-        <p className="text-xl text-gray-300 mb-8 text-center">
-          I’d love to hear from you! Whether it’s a project idea, collaboration,
-          or just a friendly hello.
-        </p>
-        <p className="text-xl text-gray-300 mb-8 text-center">
-          Feel free to reach out
-        </p>
+      <div className="relative z-10 max-w-4xl mx-auto w-full">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 sm:mb-6 text-center">
+          Get in Touch
+        </h1>
 
-        <div className="space-y-4">
-          <p className="flex items-center justify-center gap-2">
-            <Mail className="w-5 h-5 text-blue-500" />
-            <a
-              href="mailto:ariefnurazams@gmail.com"
-              className="hover:underline"
-            >
-              ariefnurazams@gmail.com
-            </a>
+        <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-4">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300">
+            I'd love to hear from you! Whether it's a project idea,
+            collaboration, or just a friendly hello.
           </p>
-          <p className="flex items-center justify-center gap-2">
-            <Linkedin className="w-5 h-5 text-blue-500" />
-            <a
-              href="https://www.linkedin.com/in/arief-azams/"
-              target="_blank"
-              className="hover:underline"
-            >
-              linkedin.com/in/arief-azams
-            </a>
+          <p className="text-base sm:text-lg md:text-xl text-gray-300">
+            Feel free to reach out
           </p>
+        </div>
 
-          <p className="flex items-center justify-center gap-2">
-            <Github className="w-5 h-5 text-blue-500" />
-            <a
-              href="https://github.com/Azam2312334"
-              target="_blank"
-              className="hover:underline"
-            >
-              github.com/Azam2312334
-            </a>
-          </p>
+        <div className="grid gap-6 sm:gap-8 md:grid-cols-3 px-4">
+          {contactMethods.map((method, index) => {
+            const Icon = method.icon;
+            return (
+              <a
+                key={index}
+                href={method.href}
+                target={method.href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  method.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
+                className="group relative p-6 sm:p-8 border border-white/10 rounded-2xl backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 overflow-hidden cursor-pointer"
+              >
+                {/* Gradient overlay on hover */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${method.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`}
+                ></div>
+
+                {/* Icon */}
+                <div className="relative z-10 mb-4 flex justify-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/10 border-2 border-white/20 group-hover:border-white/40 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                    <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 text-center">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-white transition-colors duration-300">
+                    {method.label}
+                  </h3>
+                  <p className="text-gray-400 group-hover:text-gray-300 text-sm sm:text-base break-all transition-colors duration-300">
+                    {method.value}
+                  </p>
+                </div>
+
+                {/* Decorative corner */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Click indicator */}
+                <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-6 h-6 rounded-full border-2 border-blue-400 flex items-center justify-center">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
     </main>
