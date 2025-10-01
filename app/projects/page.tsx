@@ -300,7 +300,7 @@ export default function Projects() {
                 ) : (
                   <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 group-hover:border-white/40 transition-all duration-500">
                     <img
-                      src={project.image}
+                      src={project.image ?? ""}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
