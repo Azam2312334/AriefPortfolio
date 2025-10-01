@@ -296,10 +296,7 @@ export default function Home() {
           "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
       }}
     >
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ zIndex: 10 }}
-      >
+      <div className="fixed inset-0 pointer-events-none">
         <svg
           className="absolute inset-0 w-full h-full"
           viewBox="0 0 100 100"
@@ -487,24 +484,32 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* Hero section wrapper with padding for scroll distance */}
-      <div style={{ height: "100vh", position: "relative" }}>
+      {/* Hero section wrapper with padding for scroll distance - desktop only */}
+      <div
+        style={{ height: isMobile ? "auto" : "100vh", position: "relative" }}
+      >
         <section
-          className="absolute top-0 left-0 w-full h-screen flex flex-col lg:items-center lg:justify-center text-white px-4 overflow-hidden"
+          className={`${isMobile ? "relative" : "fixed"} top-0 left-0 w-full ${
+            isMobile ? "min-h-screen" : "h-screen"
+          } flex flex-col lg:items-center lg:justify-center text-white px-4 overflow-hidden`}
           style={{
-            zIndex: 10,
-            pointerEvents: scrollProgress >= 0.95 ? "none" : "auto",
+            zIndex: isMobile ? "auto" : scrollProgress < 0.95 ? 100 : 1,
+            pointerEvents: isMobile
+              ? "auto"
+              : scrollProgress >= 0.95
+              ? "none"
+              : "auto",
           }}
         >
           <div
             ref={circleRef}
-            className="absolute lg:left-1/2 left-[75%] top-[40%] lg:top-1/2 w-32 h-32 lg:w-48 lg:h-48 
-                   lg:-translate-x-1/2 lg:-translate-y-1/2 rounded-full 
+            className="hidden lg:block fixed left-1/2 top-1/2 w-48 h-48 
+                   -translate-x-1/2 -translate-y-1/2 rounded-full 
                    bg-gradient-radial from-white/20 via-white/10 to-transparent
                    border-2 border-white/40 shadow-2xl pointer-events-none"
             style={{
               transition: "transform 0.05s linear, opacity 0.05s linear",
-              zIndex: 10,
+              zIndex: 50,
               boxShadow:
                 "0 0 100px rgba(255,255,255,0.3), inset 0 0 100px rgba(255,255,255,0.1)",
               transformOrigin: "center center",
@@ -512,7 +517,7 @@ export default function Home() {
           ></div>
 
           <div
-            ref={heroContentRef}
+            ref={isMobile ? null : heroContentRef}
             className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl relative z-10 pt-20 lg:pt-0"
             style={{
               transition: "opacity 0.05s linear",
