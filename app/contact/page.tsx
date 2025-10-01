@@ -247,9 +247,10 @@ export default function Contact() {
 
         <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-4">
           <p className="text-base sm:text-lg md:text-xl text-gray-300">
-            I'd love to hear from you! Whether it's a project idea,
+            I&apos;d love to hear from you! Whether it&apos;s a project idea,
             collaboration, or just a friendly hello.
           </p>
+
           <p className="text-base sm:text-lg md:text-xl text-gray-300">
             Feel free to reach out
           </p>

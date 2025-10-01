@@ -106,11 +106,12 @@ export default function About() {
               <h2 className="text-2xl sm:text-3xl font-bold">Who I Am</h2>
             </div>
             <p className="text-gray-300 leading-relaxed text-sm sm:text-base mb-4">
-              Hi, I'm{" "}
+              Hi, I&apos;m{" "}
               <span className="text-white font-semibold">Arief Azam</span>, a
               web and mobile developer passionate about building smooth,
               interactive, and meaningful digital experiences.
             </p>
+
             <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
               I enjoy turning ideas into products that are both functional and
               visually engaging.
