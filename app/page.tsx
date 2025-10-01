@@ -20,6 +20,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const circleRef = useRef<HTMLDivElement>(null);
+  const [activeTechIndex, setActiveTechIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -45,19 +46,13 @@ export default function Home() {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
 
-      // Just 1 viewport for zoom
       const progress = Math.min(scrollY / windowHeight, 1);
       setScrollProgress(progress);
 
-      // Keep the SAME slow pace but reach full screen
-      // Linear progression to 50x instead of 3x
       const scale = 1 + progress * 49;
 
-      // Content fades out extremely gradually
       const contentOpacity = 1 - Math.pow(progress, 5);
 
-      // Both circle and content use same scale for synchronized zoom
-      // Use transform without translate to prevent movement
       circleRef.current.style.transform = `scale(${scale})`;
       circleRef.current.style.opacity = `${Math.max(0, 1 - progress)}`;
 
@@ -288,6 +283,21 @@ export default function Home() {
     );
   }
 
+  const techLogos = [
+    { src: "/images/projects/ts.png", alt: "TypeScript", angle: 0 },
+    { src: "/images/projects/next.jpg", alt: "Next.js", angle: 30 },
+    { src: "/images/projects/js.png", alt: "JavaScript", angle: 60 },
+    { src: "/images/projects/react.png", alt: "React", angle: 90 },
+    { src: "/images/projects/node.png", alt: "Node.js", angle: 120 },
+    { src: "/images/projects/php.png", alt: "PHP", angle: 150 },
+    { src: "/images/projects/python.jpg", alt: "Python", angle: 180 },
+    { src: "/images/projects/tailwind.png", alt: "Tailwind", angle: 210 },
+    { src: "/images/projects/mysql.png", alt: "MySQL", angle: 240 },
+    { src: "/images/projects/java.svg", alt: "Java", angle: 270 },
+    { src: "/images/projects/postgresql.jpg", alt: "PostgreSQL", angle: 300 },
+    { src: "/images/projects/prisma.jpg", alt: "Prisma", angle: 330 },
+  ];
+
   return (
     <main
       className="relative min-h-screen overflow-x-hidden"
@@ -484,7 +494,6 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* Hero section wrapper with padding for scroll distance - desktop only */}
       <div
         style={{ height: isMobile ? "auto" : "100vh", position: "relative" }}
       >
@@ -583,12 +592,99 @@ export default function Home() {
             </div>
 
             <div className="flex-shrink-0 relative order-1 lg:order-2 mb-8 lg:mb-0 flex justify-center">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-white shadow-lg relative z-10">
-                <img
-                  src="/images/projects/profile.JPEG"
-                  alt="Profile Photo"
-                  className="w-full h-full object-cover"
-                />
+              <div
+                className={`relative ${isMobile ? "w-80 h-80" : "w-96 h-96"}`}
+              >
+                <svg
+                  className="absolute inset-0 w-full h-full"
+                  viewBox="0 0 400 400"
+                  style={{ zIndex: 1 }}
+                >
+                  {[...Array(8)].map((_, ring) => {
+                    const radius = 40 + ring * 25;
+                    const segments = 36;
+                    return [...Array(segments)].map((_, i) => {
+                      const angle1 = (i / segments) * 2 * Math.PI;
+                      const angle2 = ((i + 1) / segments) * 2 * Math.PI;
+                      const x1 = 200 + radius * Math.cos(angle1);
+                      const y1 = 200 + radius * Math.sin(angle1);
+                      const x2 = 200 + radius * Math.cos(angle2);
+                      const y2 = 200 + radius * Math.sin(angle2);
+                      return (
+                        <line
+                          key={`ring-${ring}-${i}`}
+                          x1={x1}
+                          y1={y1}
+                          x2={x2}
+                          y2={y2}
+                          stroke="rgba(255,255,255,0.3)"
+                          strokeWidth="1"
+                        />
+                      );
+                    });
+                  })}
+
+                  {techLogos.map((logo, i) => {
+                    const angle = (logo.angle * Math.PI) / 180;
+                    return (
+                      <line
+                        key={`spoke-${i}`}
+                        x1="200"
+                        y1="200"
+                        x2={200 + 180 * Math.cos(angle)}
+                        y2={200 + 180 * Math.sin(angle)}
+                        stroke="rgba(255,255,255,0.4)"
+                        strokeWidth="1.5"
+                      />
+                    );
+                  })}
+                </svg>
+
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl z-20 hover:scale-110 hover:shadow-white/50 transition-all duration-300 cursor-pointer">
+                  <img
+                    src="/images/projects/profile.JPEG"
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {techLogos.map((logo, i) => {
+                  const angle = (logo.angle * Math.PI) / 180;
+                  const distance = isMobile ? 140 : 180;
+                  const x =
+                    50 + (distance * Math.cos(angle)) / (isMobile ? 3.2 : 4);
+                  const y =
+                    50 + (distance * Math.sin(angle)) / (isMobile ? 3.2 : 4);
+                  return (
+                    <div
+                      key={i}
+                      className="absolute z-10 pointer-events-auto cursor-pointer group"
+                      style={{
+                        left: `${x}%`,
+                        top: `${y}%`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <div
+                        className={`${
+                          isMobile ? "w-10 h-10" : "w-12 h-12"
+                        } rounded overflow-hidden shadow-lg border-2 border-white/40 hover:scale-125 hover:shadow-2xl hover:shadow-white/40 hover:border-white/80 transition-all duration-300 bg-white/10`}
+                        style={{
+                          transform: `rotate(${Math.random() * 30 - 15}deg)`,
+                        }}
+                      >
+                        <img
+                          src={logo.src}
+                          alt={logo.alt}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                        {logo.alt}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
