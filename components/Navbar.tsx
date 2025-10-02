@@ -16,7 +16,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white border-b z-50">
+    <header className="fixed top-0 left-0 w-full bg-white border-b absolute top z-50">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo / Name */}
         <Link href="/" className="font-bold text-xl" onClick={closeMenu}>

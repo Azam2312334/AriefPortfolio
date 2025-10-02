@@ -7,7 +7,15 @@ import { Mail, Linkedin, Github } from "lucide-react";
 
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -216,7 +224,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <main
-        className="relative min-h-screen overflow-x-hidden"
+        className="relative min-h-screen overflow-x-hidden z-10"
         style={{
           background:
             "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
@@ -493,12 +501,13 @@ export default function Home() {
           />
         </svg>
       </div>
-
       <div
         style={{ height: isMobile ? "auto" : "100vh", position: "relative" }}
       >
         <section
-          className={`${isMobile ? "relative" : "fixed"} top-0 left-0 w-full ${
+          className={`${
+            isMobile ? "relative" : "fixed"
+          } top-0 left-0 mt-30 w-full ${
             isMobile ? "min-h-screen" : "h-screen"
           } flex flex-col lg:items-center lg:justify-center text-white px-4 overflow-hidden`}
           style={{
@@ -534,7 +543,7 @@ export default function Home() {
             }}
           >
             <div className="flex-1 lg:pr-12 order-2 lg:order-1">
-              <p className="text-sm text-gray-400 mb-4 uppercase tracking-wider text-center lg:text-left">
+              <p className="z-10 text-sm text-gray-400 mb-4 uppercase tracking-wider text-center lg:text-left">
                 ARIEF AZAM
               </p>
 
@@ -690,7 +699,6 @@ export default function Home() {
           </div>
         </section>
       </div>
-
       <section
         ref={projectsRef}
         className="flex flex-col items-center justify-center min-h-screen lg:h-screen text-white px-4 py-12 lg:py-8"
@@ -753,321 +761,496 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        ref={aboutRef}
-        className="flex flex-col items-center justify-center min-h-screen text-white px-4 py-12 lg:py-8"
-      >
-        <h2 className="text-3xl lg:text-4xl font-bold mb-8 lg:mb-4">
-          About Me
-        </h2>
-        <div className="w-full max-w-7xl mt-4 lg:mt-0">
-          <div
-            className="timeline-container relative overflow-x-auto cursor-grab"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              WebkitOverflowScrolling: "touch",
-              overscrollBehaviorX: "contain",
-            }}
-            onMouseDown={(e) => {
-              if (isMobile) return;
-              const container = e.currentTarget;
-              container.classList.add("active");
-              container.style.cursor = "grabbing";
-              const startX = e.pageX - container.offsetLeft;
-              const scrollLeft = container.scrollLeft;
-              let isDown = true;
-              const handleMouseMove = (e: MouseEvent) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - container.offsetLeft;
-                const walk = (x - startX) * 2;
-                container.scrollLeft = scrollLeft - walk;
-              };
-              const handleMouseUp = () => {
-                isDown = false;
-                container.classList.remove("active");
-                container.style.cursor = "grab";
-                document.removeEventListener("mousemove", handleMouseMove);
-                document.removeEventListener("mouseup", handleMouseUp);
-              };
-              const handleMouseLeave = () => {
-                if (isDown) {
-                  isDown = false;
-                  container.classList.remove("active");
-                  container.style.cursor = "grab";
-                  document.removeEventListener("mousemove", handleMouseMove);
-                  document.removeEventListener("mouseup", handleMouseUp);
-                }
-              };
-              document.addEventListener("mousemove", handleMouseMove);
-              document.addEventListener("mouseup", handleMouseUp);
-              container.addEventListener("mouseleave", handleMouseLeave);
-            }}
-          >
-            <div className="relative">
-              <div
-                className={`flex ${
-                  isMobile ? "gap-8" : "gap-16"
-                } px-4 lg:px-8 min-w-max py-0 relative`}
-              >
-                <div
-                  className="absolute top-1/2 h-0.5 bg-white/30 -translate-y-1/2 z-0 pointer-events-none"
-                  style={{
-                    left: isMobile ? "7rem" : "8rem",
-                    right: isMobile ? "7rem" : "8rem",
-                  }}
-                ></div>
+      {/* About Me*/}
+      <div>
+        {/* About Me - mobile content */}
+        <section className="block sm:hidden flex flex-col items-center justify-center min-h-screen text-white px-4 py-12">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-12">About Me</h2>
 
-                <div
-                  className={`relative flex flex-col items-center ${
-                    isMobile ? "w-56" : "w-64"
-                  } flex-shrink-0`}
-                >
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
-                  </div>
-                  <div className="w-full mt-110 z-10">
-                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
-                      <h3
-                        className={`${
-                          isMobile ? "text-base" : "text-lg"
-                        } font-semibold mb-2 text-center`}
-                      >
-                        Foundation Studies
-                      </h3>
-                      <div className="flex justify-center">
-                        <img
-                          src="/images/projects/kms.png"
-                          alt="kms Logo"
-                          className={`${
-                            isMobile ? "w-20 h-20" : "w-30 h-30"
-                          } object-contain mx-auto`}
-                        />
-                      </div>
-                      <p className="text-green-400 mt-1 mb-1 text-center text-sm">
-                        Selangor Matriculation College
-                      </p>
-                      <p className="text-gray-300 text-xs text-center mb-2">
-                        Information Technology - Computer Science
-                      </p>
-                      <p
-                        className={`text-gray-400 ${
-                          isMobile ? "text-xs" : "text-xs"
-                        } text-center mb-3`}
-                      >
-                        Completed foundation studies in Information Technology
-                        in computer science, learned the fundamentals of
-                        programming, problem-solving, and IT concepts that built
-                        a strong base for further studies.
-                      </p>
+          <div className="w-full max-w-4xl relative">
+            {/* Vertical line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/30 -translate-x-1/2"></div>
+
+            {/* Timeline items */}
+            <div className="space-y-16">
+              {/* Foundation Studies - 2018 */}
+              <div className="relative flex items-center">
+                <div className="w-1/2 pr-8 text-center">
+                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
+                    <h3 className="text-lg font-semibold mb-3">
+                      Foundation Studies
+                    </h3>
+                    <div className="flex justify-center mb-3">
+                      <img
+                        src="/images/projects/kms.png"
+                        alt="kms Logo"
+                        className="w-24 h-24 object-contain"
+                      />
                     </div>
-                    <div className="mt-4 text-center">
-                      <span className="text-gray-400 text-sm font-medium">
-                        2018
-                      </span>
-                    </div>
+                    <p className="text-green-400 mb-2 text-sm">
+                      Selangor Matriculation College
+                    </p>
+                    <p className="text-gray-300 text-xs mb-3">
+                      Information Technology - Computer Science
+                    </p>
+                    <p className="text-gray-400 text-xs">
+                      Completed foundation studies in Information Technology in
+                      computer science, learned the fundamentals of programming,
+                      problem-solving, and IT concepts that built a strong base
+                      for further studies.
+                    </p>
                   </div>
                 </div>
+                <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                </div>
+                <div className="w-1/2 pl-8">
+                  <span className="text-gray-400 text-sm font-medium">
+                    2018
+                  </span>
+                </div>
+              </div>
 
-                <div
-                  className={`relative flex flex-col items-center ${
-                    isMobile ? "w-56" : "w-64"
-                  } flex-shrink-0`}
-                >
-                  <div className="w-full mt-30 z-10">
-                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
-                      <h3
-                        className={`${
-                          isMobile ? "text-base" : "text-lg"
-                        } font-semibold text-center`}
-                      >
-                        Degree Studies
-                      </h3>
-                      <div className="flex justify-center">
-                        <img
-                          src="/images/projects/unikl.webp"
-                          alt="unikl Logo"
-                          className={`${
-                            isMobile ? "w-20 h-16" : "w-full h-full"
-                          } object-contain mx-auto bg-white rounded`}
-                        />
-                      </div>
-                      <p className="text-blue-400 mt-1 mb-1 text-center text-sm">
-                        Universiti Kuala Lumpur MIIT
-                      </p>
-                      <p className="text-gray-300 text-xs text-center mb-2">
-                        Bachelor Degree in Software Engineering
-                      </p>
-                      <p
-                        className={`text-gray-400 ${
-                          isMobile ? "text-xs" : "text-xs"
-                        } text-center`}
-                      >
-                        Native, Node.js, and Firebase.
-                      </p>
+              {/* Degree Studies - 2022 */}
+              <div className="relative flex items-center">
+                <div className="w-1/2 pr-8 text-right">
+                  <span className="text-gray-400 text-sm font-medium">
+                    2022
+                  </span>
+                </div>
+                <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                </div>
+                <div className="w-1/2 pl-8 text-center">
+                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
+                    <h3 className="text-lg font-semibold mb-3">
+                      Degree Studies
+                    </h3>
+                    <div className="flex justify-center mb-3">
+                      <img
+                        src="/images/projects/unikl.webp"
+                        alt="unikl Logo"
+                        className="w-32 h-24 object-contain bg-white rounded"
+                      />
                     </div>
-                    <div className="mt-4 text-center">
-                      <span className="text-gray-400 text-sm font-medium">
-                        2022
-                      </span>
-                    </div>
-                  </div>
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                    <p className="text-blue-400 mb-2 text-sm">
+                      Universiti Kuala Lumpur MIIT
+                    </p>
+                    <p className="text-gray-300 text-xs mb-3">
+                      Bachelor Degree in Software Engineering
+                    </p>
+                    <p className="text-gray-400 text-xs">
+                      Native, Node.js, and Firebase.
+                    </p>
                   </div>
                 </div>
+              </div>
 
-                <div
-                  className={`relative flex flex-col items-center ${
-                    isMobile ? "w-56" : "w-64"
-                  } flex-shrink-0`}
-                >
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
-                  </div>
-                  <div className="w-full mt-110 z-10">
-                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
-                      <h3
-                        className={`${
-                          isMobile ? "text-base" : "text-lg"
-                        } font-semibold mb-1 text-center`}
-                      >
-                        Internship
-                      </h3>
-                      <div className="mt-5 mb-5 flex justify-center">
-                        <img
-                          src="/images/projects/mdec.png"
-                          alt="mdec Logo"
-                          className={`${
-                            isMobile ? "w-20 h-16" : "w-full h-full"
-                          } object-contain mx-auto`}
-                        />
-                      </div>
-                      <p className="text-yellow-400 mb-1 text-center text-sm">
-                        Malaysia Digital Economy Corporation
-                      </p>
-                      <p
-                        className={`text-gray-400 ${
-                          isMobile ? "text-xs" : "text-xs"
-                        } text-center mb-3`}
-                      >
-                        Completed internship at MDEC and gained hands-on
-                        experience in modern web development frameworks such as
-                        Next.js and React. Worked with JSON data integration,
-                        participated in sprint-based tasks, and practiced Agile
-                        methodologies, including ticketing systems, to deliver
-                        and manage projects efficiently.
-                      </p>
+              {/* Internship - 2025 */}
+              <div className="relative flex items-center">
+                <div className="w-1/2 pr-8 text-center">
+                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
+                    <h3 className="text-lg font-semibold mb-3">Internship</h3>
+                    <div className="flex justify-center mb-3">
+                      <img
+                        src="/images/projects/mdec.png"
+                        alt="mdec Logo"
+                        className="w-32 h-24 object-contain"
+                      />
                     </div>
-                    <div className="mt-4 text-center">
-                      <span className="text-gray-400 text-sm font-medium">
-                        2025
-                      </span>
-                    </div>
+                    <p className="text-yellow-400 mb-2 text-sm">
+                      Malaysia Digital Economy Corporation
+                    </p>
+                    <p className="text-gray-400 text-xs">
+                      Completed internship at MDEC and gained hands-on
+                      experience in modern web development frameworks such as
+                      Next.js and React. Worked with JSON data integration,
+                      participated in sprint-based tasks, and practiced Agile
+                      methodologies, including ticketing systems, to deliver and
+                      manage projects efficiently.
+                    </p>
                   </div>
                 </div>
+                <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                </div>
+                <div className="w-1/2 pl-8">
+                  <span className="text-gray-400 text-sm font-medium">
+                    2025
+                  </span>
+                </div>
+              </div>
 
-                <div
-                  className={`relative flex flex-col items-center ${
-                    isMobile ? "w-56" : "w-64"
-                  } flex-shrink-0`}
-                >
-                  <div className="w-full mt-50 z-10">
-                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
-                      <h3
-                        className={`${
-                          isMobile ? "text-base" : "text-lg"
-                        } font-semibold text-center`}
-                      >
-                        Junior Developer
-                      </h3>
-                      <p className="text-purple-400 mb-1 text-center text-sm">
-                        -
-                      </p>
-                      <p className="text-gray-300 text-xs text-center mb-2">
-                        -
-                      </p>
-                      <p
-                        className={`text-gray-400 ${
-                          isMobile ? "text-xs" : "text-xs"
-                        } text-center mb-3`}
-                      >
-                        -
-                      </p>
-                    </div>
-                    <div className="mt-4 text-center">
-                      <span className="text-gray-400 text-sm font-medium">
-                        -
-                      </span>
-                    </div>
-                  </div>
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+              {/* Junior Developer */}
+              <div className="relative flex items-center">
+                <div className="w-1/2 pr-8 text-right">
+                  <span className="text-gray-400 text-sm font-medium">-</span>
+                </div>
+                <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                </div>
+                <div className="w-1/2 pl-8 text-center">
+                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
+                    <h3 className="text-lg font-semibold mb-2">
+                      Junior Developer
+                    </h3>
+                    <p className="text-purple-400 mb-2 text-sm">-</p>
+                    <p className="text-gray-300 text-xs mb-2">-</p>
+                    <p className="text-gray-400 text-xs">-</p>
                   </div>
                 </div>
+              </div>
 
-                <div
-                  className={`relative flex flex-col items-center ${
-                    isMobile ? "w-56" : "w-64"
-                  } flex-shrink-0`}
-                >
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+              {/* Software Architect */}
+              <div className="relative flex items-center">
+                <div className="w-1/2 pr-8 text-center">
+                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
+                    <h3 className="text-lg font-semibold mb-3">
+                      Software Architect
+                    </h3>
+                    <p className="text-cyan-400 mb-2 text-sm">future</p>
+                    <p className="text-gray-300 text-xs mb-2">-</p>
+                    <p className="text-gray-400 text-xs">
+                      planning, designing, and solving system-level problems.
+                    </p>
                   </div>
-                  <div className="w-full mt-90 z-100">
-                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
-                      <h3
-                        className={`${
-                          isMobile ? "text-base" : "text-lg"
-                        } font-semibold mb-2 text-center`}
-                      >
-                        Software Architect
-                      </h3>
-                      <p className="text-cyan-400 mb-1 text-center text-sm">
-                        future
-                      </p>
-                      <p className="text-gray-300 text-xs text-center mb-2">
-                        -
-                      </p>
-                      <p
-                        className={`text-gray-400 ${
-                          isMobile ? "text-xs" : "text-xs"
-                        } text-center mb-3`}
-                      >
-                        planning, designing, and solving system-level problems.
-                      </p>
-                    </div>
-                    <div className="mt-4 text-center">
-                      <span className="text-gray-400 text-sm font-medium">
-                        -
-                      </span>
-                    </div>
-                  </div>
+                </div>
+                <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                </div>
+                <div className="w-1/2 pl-8">
+                  <span className="text-gray-400 text-sm font-medium">-</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex justify-center mt-6 lg:mt-0 gap-4 mb-4 lg:mb-0">
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <span className="hidden sm:inline">
-                ← Drag to explore timeline →
-              </span>
-              <span className="sm:hidden">← Swipe to explore →</span>
+          <div className="mt-12 text-center max-w-2xl mx-auto">
+            <p className="text-gray-300 leading-relaxed text-sm lg:text-base px-4">
+              Currently available for opportunities and excited to work on
+              innovative projects that challenge my skills and create meaningful
+              user experiences.
+            </p>
+          </div>
+        </section>
+
+        {/* About Me - Desktop content */}
+        <section
+          ref={aboutRef}
+          className="hidden sm:flex flex-col items-center justify-center min-h-screen text-white px-4 py-12 lg:py-8"
+        >
+          <h2 className="text-3xl lg:text-4xl font-bold mb-8 lg:mb-4">
+            About Me
+          </h2>
+          <div className="w-full max-w-7xl mt-4 lg:mt-0">
+            <div
+              className="timeline-container relative overflow-x-auto cursor-grab"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+                WebkitOverflowScrolling: "touch",
+                overscrollBehaviorX: "contain",
+              }}
+              onMouseDown={(e) => {
+                if (isMobile) return;
+                const container = e.currentTarget;
+                container.classList.add("active");
+                container.style.cursor = "grabbing";
+                const startX = e.pageX - container.offsetLeft;
+                const scrollLeft = container.scrollLeft;
+                let isDown = true;
+                const handleMouseMove = (e: MouseEvent) => {
+                  if (!isDown) return;
+                  e.preventDefault();
+                  const x = e.pageX - container.offsetLeft;
+                  const walk = (x - startX) * 2;
+                  container.scrollLeft = scrollLeft - walk;
+                };
+                const handleMouseUp = () => {
+                  isDown = false;
+                  container.classList.remove("active");
+                  container.style.cursor = "grab";
+                  document.removeEventListener("mousemove", handleMouseMove);
+                  document.removeEventListener("mouseup", handleMouseUp);
+                };
+                const handleMouseLeave = () => {
+                  if (isDown) {
+                    isDown = false;
+                    container.classList.remove("active");
+                    container.style.cursor = "grab";
+                    document.removeEventListener("mousemove", handleMouseMove);
+                    document.removeEventListener("mouseup", handleMouseUp);
+                  }
+                };
+                document.addEventListener("mousemove", handleMouseMove);
+                document.addEventListener("mouseup", handleMouseUp);
+                container.addEventListener("mouseleave", handleMouseLeave);
+              }}
+            >
+              <div className="relative">
+                <div
+                  className={`flex ${
+                    isMobile ? "gap-8" : "gap-16"
+                  } px-4 lg:px-8 min-w-max py-0 relative`}
+                >
+                  <div
+                    className="absolute top-1/2 h-0.5 bg-white/30 -translate-y-1/2 z-0 pointer-events-none"
+                    style={{
+                      left: isMobile ? "7rem" : "8rem",
+                      right: isMobile ? "7rem" : "8rem",
+                    }}
+                  ></div>
+
+                  <div
+                    className={`relative flex flex-col items-center ${
+                      isMobile ? "w-56" : "w-64"
+                    } flex-shrink-0`}
+                  >
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                      <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                    </div>
+                    <div className="w-full mt-110 z-10">
+                      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                        <h3
+                          className={`${
+                            isMobile ? "text-base" : "text-lg"
+                          } font-semibold mb-2 text-center`}
+                        >
+                          Foundation Studies
+                        </h3>
+                        <div className="flex justify-center">
+                          <img
+                            src="/images/projects/kms.png"
+                            alt="kms Logo"
+                            className={`${
+                              isMobile ? "w-20 h-20" : "w-30 h-30"
+                            } object-contain mx-auto`}
+                          />
+                        </div>
+                        <p className="text-green-400 mt-1 mb-1 text-center text-sm">
+                          Selangor Matriculation College
+                        </p>
+                        <p className="text-gray-300 text-xs text-center mb-2">
+                          Information Technology - Computer Science
+                        </p>
+                        <p
+                          className={`text-gray-400 ${
+                            isMobile ? "text-xs" : "text-xs"
+                          } text-center mb-3`}
+                        >
+                          Completed foundation studies in Information Technology
+                          in computer science, learned the fundamentals of
+                          programming, problem-solving, and IT concepts that
+                          built a strong base for further studies.
+                        </p>
+                      </div>
+                      <div className="mt-4 text-center">
+                        <span className="text-gray-400 text-sm font-medium">
+                          2018
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`relative flex flex-col items-center ${
+                      isMobile ? "w-56" : "w-64"
+                    } flex-shrink-0`}
+                  >
+                    <div className="w-full mt-30 z-10">
+                      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                        <h3
+                          className={`${
+                            isMobile ? "text-base" : "text-lg"
+                          } font-semibold text-center`}
+                        >
+                          Degree Studies
+                        </h3>
+                        <div className="flex justify-center">
+                          <img
+                            src="/images/projects/unikl.webp"
+                            alt="unikl Logo"
+                            className={`${
+                              isMobile ? "w-20 h-16" : "w-full h-full"
+                            } object-contain mx-auto bg-white rounded`}
+                          />
+                        </div>
+                        <p className="text-blue-400 mt-1 mb-1 text-center text-sm">
+                          Universiti Kuala Lumpur MIIT
+                        </p>
+                        <p className="text-gray-300 text-xs text-center mb-2">
+                          Bachelor Degree in Software Engineering
+                        </p>
+                        <p
+                          className={`text-gray-400 ${
+                            isMobile ? "text-xs" : "text-xs"
+                          } text-center`}
+                        >
+                          Native, Node.js, and Firebase.
+                        </p>
+                      </div>
+                      <div className="mt-4 text-center">
+                        <span className="text-gray-400 text-sm font-medium">
+                          2022
+                        </span>
+                      </div>
+                    </div>
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                      <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`relative flex flex-col items-center ${
+                      isMobile ? "w-56" : "w-64"
+                    } flex-shrink-0`}
+                  >
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                      <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                    </div>
+                    <div className="w-full mt-110 z-10">
+                      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                        <h3
+                          className={`${
+                            isMobile ? "text-base" : "text-lg"
+                          } font-semibold mb-1 text-center`}
+                        >
+                          Internship
+                        </h3>
+                        <div className="mt-5 mb-5 flex justify-center">
+                          <img
+                            src="/images/projects/mdec.png"
+                            alt="mdec Logo"
+                            className={`${
+                              isMobile ? "w-20 h-16" : "w-full h-full"
+                            } object-contain mx-auto`}
+                          />
+                        </div>
+                        <p className="text-yellow-400 mb-1 text-center text-sm">
+                          Malaysia Digital Economy Corporation
+                        </p>
+                        <p
+                          className={`text-gray-400 ${
+                            isMobile ? "text-xs" : "text-xs"
+                          } text-center mb-3`}
+                        >
+                          Completed internship at MDEC and gained hands-on
+                          experience in modern web development frameworks such
+                          as Next.js and React. Worked with JSON data
+                          integration, participated in sprint-based tasks, and
+                          practiced Agile methodologies, including ticketing
+                          systems, to deliver and manage projects efficiently.
+                        </p>
+                      </div>
+                      <div className="mt-4 text-center">
+                        <span className="text-gray-400 text-sm font-medium">
+                          2025
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`relative flex flex-col items-center ${
+                      isMobile ? "w-56" : "w-64"
+                    } flex-shrink-0`}
+                  >
+                    <div className="w-full mt-50 z-10">
+                      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                        <h3
+                          className={`${
+                            isMobile ? "text-base" : "text-lg"
+                          } font-semibold text-center`}
+                        >
+                          Junior Developer
+                        </h3>
+                        <p className="text-purple-400 mb-1 text-center text-sm">
+                          -
+                        </p>
+                        <p className="text-gray-300 text-xs text-center mb-2">
+                          -
+                        </p>
+                        <p
+                          className={`text-gray-400 ${
+                            isMobile ? "text-xs" : "text-xs"
+                          } text-center mb-3`}
+                        >
+                          -
+                        </p>
+                      </div>
+                      <div className="mt-4 text-center">
+                        <span className="text-gray-400 text-sm font-medium">
+                          -
+                        </span>
+                      </div>
+                    </div>
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                      <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`relative flex flex-col items-center ${
+                      isMobile ? "w-56" : "w-64"
+                    } flex-shrink-0`}
+                  >
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                      <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                    </div>
+                    <div className="w-full mt-90 z-100">
+                      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
+                        <h3
+                          className={`${
+                            isMobile ? "text-base" : "text-lg"
+                          } font-semibold mb-2 text-center`}
+                        >
+                          Software Architect
+                        </h3>
+                        <p className="text-cyan-400 mb-1 text-center text-sm">
+                          future
+                        </p>
+                        <p className="text-gray-300 text-xs text-center mb-2">
+                          -
+                        </p>
+                        <p
+                          className={`text-gray-400 ${
+                            isMobile ? "text-xs" : "text-xs"
+                          } text-center mb-3`}
+                        >
+                          planning, designing, and solving system-level
+                          problems.
+                        </p>
+                      </div>
+                      <div className="mt-4 text-center">
+                        <span className="text-gray-400 text-sm font-medium">
+                          -
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-center mt-6 lg:mt-0 gap-4 mb-4 lg:mb-0">
+              <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <span className="hidden sm:inline">
+                  ← Drag to explore timeline →
+                </span>
+                <span className="sm:hidden">← Swipe to explore →</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-8 lg:mt-12 text-center max-w-2xl mx-auto">
-          <p className="text-gray-300 leading-relaxed text-sm lg:text-base px-4">
-            Currently available for opportunities and excited to work on
-            innovative projects that challenge my skills and create meaningful
-            user experiences.
-          </p>
-        </div>
-      </section>
-
+          <div className="mt-8 lg:mt-12 text-center max-w-2xl mx-auto">
+            <p className="text-gray-300 leading-relaxed text-sm lg:text-base px-4">
+              Currently available for opportunities and excited to work on
+              innovative projects that challenge my skills and create meaningful
+              user experiences.
+            </p>
+          </div>
+        </section>
+      </div>
       <section
         ref={contactRef}
         className="flex flex-col items-center justify-center min-h-screen lg:h-screen text-white px-4 py-12 lg:py-8"
