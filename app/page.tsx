@@ -506,8 +506,8 @@ export default function Home() {
       >
         <section
           className={`${
-            isMobile ? "relative" : "fixed"
-          } top-0 left-0 mt-30 w-full ${
+            isMobile ? "relative mt-[-250]" : "fixed lg:mt-[-60px]"
+          } top-0 left-0 w-full ${
             isMobile ? "min-h-screen" : "h-screen"
           } flex flex-col lg:items-center lg:justify-center text-white px-4 overflow-hidden`}
           style={{
@@ -536,7 +536,7 @@ export default function Home() {
 
           <div
             ref={isMobile ? null : heroContentRef}
-            className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl relative z-10 pt-20 lg:pt-0"
+            className="flex flex-col mt-50 lg:flex-row lg:items-center lg:justify-between w-full max-w-6xl relative z-10 pt-20 lg:pt-0"
             style={{
               transition: "opacity 0.05s linear",
               willChange: "opacity",
@@ -764,176 +764,189 @@ export default function Home() {
       {/* About Me*/}
       <div>
         {/* About Me - mobile content */}
-        <section className="block sm:hidden flex flex-col items-center justify-center min-h-screen text-white px-4 py-12">
+        <section className="block sm:hidden flex flex-col items-center text-white px-4 py-12">
           <h2 className="text-3xl lg:text-4xl font-bold mb-12">About Me</h2>
 
           <div className="w-full max-w-4xl relative">
-            {/* Vertical line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/30 -translate-x-1/2"></div>
-
-            {/* Timeline items */}
-            <div className="space-y-16">
-              {/* Foundation Studies - 2018 */}
-              <div className="relative flex items-center">
-                <div className="w-1/2 pr-8 text-center">
-                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
-                    <h3 className="text-lg font-semibold mb-3">
-                      Foundation Studies
-                    </h3>
-                    <div className="flex justify-center mb-3">
-                      <img
-                        src="/images/projects/kms.png"
-                        alt="kms Logo"
-                        className="w-24 h-24 object-contain"
-                      />
+            <div
+              className="max-h-[600px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "rgba(255, 255, 255, 0.3) transparent",
+              }}
+            >
+              {/* Timeline items */}
+              <div className="space-y-16 py-4 relative">
+                {/* Vertical line - inside the content wrapper */}
+                <div
+                  className="absolute left-1/2 -translate-x-1/2 w-0.5 bg-white/30"
+                  style={{
+                    top: "2rem",
+                    bottom: "2rem",
+                    height: "calc(100% - 4rem)",
+                  }}
+                ></div>
+                {/* Foundation Studies - 2018 */}
+                <div className="relative flex items-center">
+                  <div className="w-1/2 pr-4 flex justify-end">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block text-center max-w-[180px]">
+                      <h3 className="text-sm font-semibold mb-2">
+                        Foundation Studies
+                      </h3>
+                      <div className="flex justify-center mb-2">
+                        <img
+                          src="/images/projects/kms.png"
+                          alt="kms Logo"
+                          className="w-16 h-16 object-contain"
+                        />
+                      </div>
+                      <p className="text-green-400 mb-1 text-xs">
+                        Selangor Matriculation College
+                      </p>
+                      <p className="text-gray-300 text-[10px] mb-2">
+                        Information Technology - Computer Science
+                      </p>
+                      <p className="text-gray-400 text-[10px]">
+                        Completed foundation studies in Information Technology
+                        in computer science, learned the fundamentals of
+                        programming, problem-solving, and IT concepts that built
+                        a strong base for further studies.
+                      </p>
                     </div>
-                    <p className="text-green-400 mb-2 text-sm">
-                      Selangor Matriculation College
-                    </p>
-                    <p className="text-gray-300 text-xs mb-3">
-                      Information Technology - Computer Science
-                    </p>
-                    <p className="text-gray-400 text-xs">
-                      Completed foundation studies in Information Technology in
-                      computer science, learned the fundamentals of programming,
-                      problem-solving, and IT concepts that built a strong base
-                      for further studies.
-                    </p>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  <div className="w-1/2 pl-4 text-center">
+                    <span className="text-gray-400 text-xs font-medium">
+                      2018
+                    </span>
                   </div>
                 </div>
-                <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
-                </div>
-                <div className="w-1/2 pl-8">
-                  <span className="text-gray-400 text-sm font-medium">
-                    2018
-                  </span>
-                </div>
-              </div>
 
-              {/* Degree Studies - 2022 */}
-              <div className="relative flex items-center">
-                <div className="w-1/2 pr-8 text-right">
-                  <span className="text-gray-400 text-sm font-medium">
-                    2022
-                  </span>
-                </div>
-                <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
-                </div>
-                <div className="w-1/2 pl-8 text-center">
-                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
-                    <h3 className="text-lg font-semibold mb-3">
-                      Degree Studies
-                    </h3>
-                    <div className="flex justify-center mb-3">
-                      <img
-                        src="/images/projects/unikl.webp"
-                        alt="unikl Logo"
-                        className="w-32 h-24 object-contain bg-white rounded"
-                      />
+                {/* Degree Studies - 2022 */}
+                <div className="relative flex items-center">
+                  <div className="w-1/2 pr-4 text-center flex justify-end">
+                    <span className="text-gray-400 text-xs font-medium">
+                      2022
+                    </span>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  <div className="w-1/2 pl-4">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block text-center max-w-[180px]">
+                      <h3 className="text-sm font-semibold mb-2">
+                        Degree Studies
+                      </h3>
+                      <div className="flex justify-center mb-2">
+                        <img
+                          src="/images/projects/unikl.webp"
+                          alt="unikl Logo"
+                          className="w-20 h-16 object-contain bg-white rounded"
+                        />
+                      </div>
+                      <p className="text-blue-400 mb-1 text-xs">
+                        Universiti Kuala Lumpur MIIT
+                      </p>
+                      <p className="text-gray-300 text-[10px] mb-2">
+                        Bachelor Degree in Software Engineering
+                      </p>
+                      <p className="text-gray-400 text-[10px]">
+                        Native, Node.js, and Firebase.
+                      </p>
                     </div>
-                    <p className="text-blue-400 mb-2 text-sm">
-                      Universiti Kuala Lumpur MIIT
-                    </p>
-                    <p className="text-gray-300 text-xs mb-3">
-                      Bachelor Degree in Software Engineering
-                    </p>
-                    <p className="text-gray-400 text-xs">
-                      Native, Node.js, and Firebase.
-                    </p>
                   </div>
                 </div>
-              </div>
 
-              {/* Internship - 2025 */}
-              <div className="relative flex items-center">
-                <div className="w-1/2 pr-8 text-center">
-                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
-                    <h3 className="text-lg font-semibold mb-3">Internship</h3>
-                    <div className="flex justify-center mb-3">
-                      <img
-                        src="/images/projects/mdec.png"
-                        alt="mdec Logo"
-                        className="w-32 h-24 object-contain"
-                      />
+                {/* Internship - 2025 */}
+                <div className="relative flex items-center">
+                  <div className="w-1/2 pr-4 flex justify-end">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block text-center max-w-[180px]">
+                      <h3 className="text-sm font-semibold mb-2">Internship</h3>
+                      <div className="flex justify-center mb-2">
+                        <img
+                          src="/images/projects/mdec.png"
+                          alt="mdec Logo"
+                          className="w-20 h-16 object-contain"
+                        />
+                      </div>
+                      <p className="text-yellow-400 mb-1 text-xs">
+                        Malaysia Digital Economy Corporation
+                      </p>
+                      <p className="text-gray-400 text-[10px]">
+                        Completed internship at MDEC and gained hands-on
+                        experience in modern web development frameworks such as
+                        Next.js and React. Worked with JSON data integration,
+                        participated in sprint-based tasks, and practiced Agile
+                        methodologies, including ticketing systems, to deliver
+                        and manage projects efficiently.
+                      </p>
                     </div>
-                    <p className="text-yellow-400 mb-2 text-sm">
-                      Malaysia Digital Economy Corporation
-                    </p>
-                    <p className="text-gray-400 text-xs">
-                      Completed internship at MDEC and gained hands-on
-                      experience in modern web development frameworks such as
-                      Next.js and React. Worked with JSON data integration,
-                      participated in sprint-based tasks, and practiced Agile
-                      methodologies, including ticketing systems, to deliver and
-                      manage projects efficiently.
-                    </p>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  <div className="w-1/2 pl-4 text-center">
+                    <span className="text-gray-400 text-xs font-medium">
+                      2025
+                    </span>
                   </div>
                 </div>
-                <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
-                </div>
-                <div className="w-1/2 pl-8">
-                  <span className="text-gray-400 text-sm font-medium">
-                    2025
-                  </span>
-                </div>
-              </div>
 
-              {/* Junior Developer */}
-              <div className="relative flex items-center">
-                <div className="w-1/2 pr-8 text-right">
-                  <span className="text-gray-400 text-sm font-medium">-</span>
-                </div>
-                <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
-                </div>
-                <div className="w-1/2 pl-8 text-center">
-                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
-                    <h3 className="text-lg font-semibold mb-2">
-                      Junior Developer
-                    </h3>
-                    <p className="text-purple-400 mb-2 text-sm">-</p>
-                    <p className="text-gray-300 text-xs mb-2">-</p>
-                    <p className="text-gray-400 text-xs">-</p>
+                {/* Junior Developer */}
+                <div className="relative flex items-center">
+                  <div className="w-1/2 pr-4 text-center flex justify-end">
+                    <span className="text-gray-400 text-xs font-medium">-</span>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  <div className="w-1/2 pl-4">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block text-center max-w-[180px]">
+                      <h3 className="text-sm font-semibold mb-2">
+                        Junior Developer
+                      </h3>
+                      <p className="text-purple-400 mb-1 text-xs">-</p>
+                      <p className="text-gray-300 text-[10px] mb-1">-</p>
+                      <p className="text-gray-400 text-[10px]">-</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Software Architect */}
-              <div className="relative flex items-center">
-                <div className="w-1/2 pr-8 text-center">
-                  <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block">
-                    <h3 className="text-lg font-semibold mb-3">
-                      Software Architect
-                    </h3>
-                    <p className="text-cyan-400 mb-2 text-sm">future</p>
-                    <p className="text-gray-300 text-xs mb-2">-</p>
-                    <p className="text-gray-400 text-xs">
-                      planning, designing, and solving system-level problems.
-                    </p>
+                {/* Software Architect */}
+                <div className="relative flex items-center">
+                  <div className="w-1/2 pr-4 flex justify-end">
+                    <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 inline-block text-center max-w-[180px]">
+                      <h3 className="text-sm font-semibold mb-2">
+                        Software Architect
+                      </h3>
+                      <p className="text-cyan-400 mb-1 text-xs">future</p>
+                      <p className="text-gray-300 text-[10px] mb-1">-</p>
+                      <p className="text-gray-400 text-[10px]">
+                        planning, designing, and solving system-level problems.
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="absolute left-1/2 -translate-x-1/2 z-10">
-                  <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
-                </div>
-                <div className="w-1/2 pl-8">
-                  <span className="text-gray-400 text-sm font-medium">-</span>
+                  <div className="absolute left-1/2 -translate-x-1/2 z-10">
+                    <div className="w-4 h-4 bg-white rounded-full border-4 border-gray-900"></div>
+                  </div>
+                  <div className="w-1/2 pl-4 text-center">
+                    <span className="text-gray-400 text-xs font-medium">-</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="mt-12 text-center max-w-2xl mx-auto">
-            <p className="text-gray-300 leading-relaxed text-sm lg:text-base px-4">
+            <p className="text-gray-300 leading-relaxed text-sm px-4">
               Currently available for opportunities and excited to work on
               innovative projects that challenge my skills and create meaningful
               user experiences.
             </p>
           </div>
         </section>
-
         {/* About Me - Desktop content */}
         <section
           ref={aboutRef}
@@ -1057,7 +1070,7 @@ export default function Home() {
                       isMobile ? "w-56" : "w-64"
                     } flex-shrink-0`}
                   >
-                    <div className="w-full mt-30 z-10">
+                    <div className="w-full mt-10 z-10">
                       <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
                         <h3
                           className={`${

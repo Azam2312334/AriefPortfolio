@@ -16,7 +16,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white border-b absolute top z-50">
+    <header className="fixed top-0 left-0 w-full bg-white border-b absolute top z-100">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo / Name */}
         <Link href="/" className="font-bold text-xl" onClick={closeMenu}>
@@ -29,7 +29,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link
                 href="/"
-                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
+                className="px-4 bg-white hover:text-primary transition rounded-md"
               >
                 Home
               </Link>
@@ -38,7 +38,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link
                 href="/projects"
-                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
+                className="px-4 bg-white hover:text-primary transition rounded-md"
               >
                 Projects
               </Link>
@@ -47,7 +47,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link
                 href="/about"
-                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
+                className="px-4 bg-white hover:text-primary transition rounded-md"
               >
                 About
               </Link>
@@ -56,7 +56,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Link
                 href="/contact"
-                className="px-4 bg-white/90 hover:text-primary transition rounded-md"
+                className="px-4 bg-white hover:text-primary transition rounded-md"
               >
                 Contact
               </Link>
