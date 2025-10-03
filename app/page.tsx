@@ -952,10 +952,10 @@ export default function Home() {
           ref={aboutRef}
           className="hidden sm:flex flex-col items-center justify-center min-h-screen text-white px-4 py-12 lg:py-8"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold mb-8 lg:mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold ">
             About Me
           </h2>
-          <div className="w-full max-w-7xl mt-4 lg:mt-0">
+          <div className="w-full max-w-7xl mt-[-130]">
             <div
               className="timeline-container relative overflow-x-auto cursor-grab"
               style={{
@@ -1070,7 +1070,7 @@ export default function Home() {
                       isMobile ? "w-56" : "w-64"
                     } flex-shrink-0`}
                   >
-                    <div className="w-full mt-10 z-10">
+                    <div className="w-full mt-30 z-10">
                       <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 w-full hover:scale-105">
                         <h3
                           className={`${
