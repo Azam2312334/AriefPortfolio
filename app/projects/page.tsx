@@ -56,6 +56,14 @@ export default function Projects() {
       gradient: "from-green-500/20 to-teal-500/20",
     },
     {
+      title: "Catering Booking Website",
+      description:
+        "A web-based booking system that allows users to create, manage, and track reservations efficiently. It is designed with a responsive interface and integrates essential features for user authentication, booking management, and real-time availability updates.",
+      link: "https://github.com/mdaminz/catering-booking-web",
+      image: "/images/projects/MysukanLogo1.png",
+      gradient: "from-amber-500/20 to-rose-500/20",
+    },
+    {
       title: "Blog",
       description:
         "A modern blog platform built with Next.js, Prisma ORM, and Neon database. Integrated with Kinde Auth for secure user authentication and access control. Users can create, edit, and manage posts in a minimal and responsive interface.",

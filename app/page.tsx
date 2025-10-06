@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, Linkedin, Github } from "lucide-react";
-
+import { ThemeProvider } from "next-themes";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import {
@@ -221,6 +221,21 @@ export default function Home() {
     );
   }
 
+  const techLogos = [
+    { src: "/images/projects/ts.png", alt: "TypeScript", angle: 0 },
+    { src: "/images/projects/next.jpg", alt: "Next.js", angle: 30 },
+    { src: "/images/projects/js.png", alt: "JavaScript", angle: 60 },
+    { src: "/images/projects/react.png", alt: "React", angle: 90 },
+    { src: "/images/projects/node.png", alt: "Node.js", angle: 120 },
+    { src: "/images/projects/php.png", alt: "PHP", angle: 150 },
+    { src: "/images/projects/python.jpg", alt: "Python", angle: 180 },
+    { src: "/images/projects/tailwind.png", alt: "Tailwind", angle: 210 },
+    { src: "/images/projects/mysql.png", alt: "MySQL", angle: 240 },
+    { src: "/images/projects/java.svg", alt: "Java", angle: 270 },
+    { src: "/images/projects/postgresql.jpg", alt: "PostgreSQL", angle: 300 },
+    { src: "/images/projects/prisma.jpg", alt: "Prisma", angle: 330 },
+  ];
+
   if (isLoading) {
     return (
       <main
@@ -290,21 +305,6 @@ export default function Home() {
       </main>
     );
   }
-
-  const techLogos = [
-    { src: "/images/projects/ts.png", alt: "TypeScript", angle: 0 },
-    { src: "/images/projects/next.jpg", alt: "Next.js", angle: 30 },
-    { src: "/images/projects/js.png", alt: "JavaScript", angle: 60 },
-    { src: "/images/projects/react.png", alt: "React", angle: 90 },
-    { src: "/images/projects/node.png", alt: "Node.js", angle: 120 },
-    { src: "/images/projects/php.png", alt: "PHP", angle: 150 },
-    { src: "/images/projects/python.jpg", alt: "Python", angle: 180 },
-    { src: "/images/projects/tailwind.png", alt: "Tailwind", angle: 210 },
-    { src: "/images/projects/mysql.png", alt: "MySQL", angle: 240 },
-    { src: "/images/projects/java.svg", alt: "Java", angle: 270 },
-    { src: "/images/projects/postgresql.jpg", alt: "PostgreSQL", angle: 300 },
-    { src: "/images/projects/prisma.jpg", alt: "Prisma", angle: 330 },
-  ];
 
   return (
     <main
@@ -584,7 +584,7 @@ export default function Home() {
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 mb-20 justify-center lg:justify-start">
                 <a
                   href="/projects"
                   className="px-4 lg:px-6 py-3 rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-white text-center hover:bg-white/30 transition text-sm lg:text-base"
@@ -786,6 +786,7 @@ export default function Home() {
                     height: "calc(100% - 4rem)",
                   }}
                 ></div>
+
                 {/* Foundation Studies - 2018 */}
                 <div className="relative flex items-center">
                   <div className="w-1/2 pr-4 flex justify-end">
@@ -952,9 +953,7 @@ export default function Home() {
           ref={aboutRef}
           className="hidden sm:flex flex-col items-center justify-center min-h-screen text-white px-4 py-12 lg:py-8"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold ">
-            About Me
-          </h2>
+          <h2 className="text-3xl lg:text-4xl font-bold ">About Me</h2>
           <div className="w-full max-w-7xl mt-[-130]">
             <div
               className="timeline-container relative overflow-x-auto cursor-grab"
@@ -1264,23 +1263,27 @@ export default function Home() {
           </div>
         </section>
       </div>
-      <section
-        ref={contactRef}
-        className="flex flex-col items-center justify-center min-h-screen lg:h-screen text-white px-4 py-12 lg:py-8"
-      >
-        <h2 className="text-3xl font-extrabold mb-4 text-center">
-          Get in Touch
-        </h2>
-        <div className="max-w-2xl mx-auto text-center space-y-6 text-lg text-gray-200">
-          <p className="text-xl text-gray-300 mb-8 text-center">
-            I&apos;d love to hear from you! Whether it&apos;s a project idea,
-            collaboration, or just a friendly hello.
-          </p>
-          <p className="text-xl text-gray-300 mb-8 text-center">
-            Feel free to reach out
-          </p>
-          <div className="space-y-4">
-            <p className="flex items-center justify-center gap-2">
+
+      {/* Contact Me */}
+      <div>
+        {/* Contact Me */}
+        <section
+          ref={contactRef}
+          className="flex flex-col lg:flex-row items-center justify-center min-h-screen text-white px-6 py-12 lg:py-8 gap-10"
+        >
+          {/* Left side (text content) */}
+          <div className="flex-1 text-center lg:text-right space-y-6 max-w-xl">
+            <h2 className="text-3xl font-extrabold mb-4">Get in Touch</h2>
+            <p className="text-xl text-gray-300">
+              I&apos;d love to hear from you! Whether it&apos;s a project idea,
+              collaboration, or just a friendly hello.
+            </p>
+            <p className="text-xl text-gray-300">Feel free to reach out.</p>
+          </div>
+
+          {/* Right side (contact links) */}
+          <div className="flex-1 space-y-4 text-lg text-gray-200">
+            <p className="flex items-center justify-center lg:justify-start gap-2">
               <Mail className="w-5 h-5 text-blue-500" />
               <a
                 href="mailto:ariefnurazams@gmail.com"
@@ -1289,7 +1292,7 @@ export default function Home() {
                 ariefnurazams@gmail.com
               </a>
             </p>
-            <p className="flex items-center justify-center gap-2">
+            <p className="flex items-center justify-center lg:justify-start gap-2">
               <Linkedin className="w-5 h-5 text-blue-500" />
               <a
                 href="https://www.linkedin.com/in/arief-azams/"
@@ -1299,7 +1302,7 @@ export default function Home() {
                 linkedin.com/in/arief-azams
               </a>
             </p>
-            <p className="flex items-center justify-center gap-2">
+            <p className="flex items-center justify-center lg:justify-start gap-2">
               <Github className="w-5 h-5 text-blue-500" />
               <a
                 href="https://github.com/Azam2312334"
@@ -1310,8 +1313,8 @@ export default function Home() {
               </a>
             </p>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

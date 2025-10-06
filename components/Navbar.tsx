@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -11,97 +12,147 @@ import {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  // Avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white border-b z-[999]">
+    <header className="fixed top-0 left-0 w-full bg-white dark:bg-gray-900 border-b dark:border-gray-800 z-[999]">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo / Name */}
-        <Link href="/" className="font-bold text-xl" onClick={closeMenu}>
+        <Link
+          href="/"
+          className="font-bold text-xl text-gray-900 dark:text-white"
+          onClick={closeMenu}
+        >
           Arief Azam
         </Link>
 
-        {/* Desktop Menu */}
-        <NavigationMenu className="hidden md:block">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link
-                href="/"
-                className="px-4 bg-white hover:text-primary transition rounded-md"
-              >
-                Home
-              </Link>
-            </NavigationMenuItem>
+        {/* Desktop Menu + Theme Toggle */}
+        <div className="hidden md:flex items-center gap-4">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link
+                  href="/"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                >
+                  Home
+                </Link>
+              </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <Link
-                href="/projects"
-                className="px-4 bg-white hover:text-primary transition rounded-md"
-              >
-                Projects
-              </Link>
-            </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link
+                  href="/projects"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                >
+                  Projects
+                </Link>
+              </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <Link
-                href="/about"
-                className="px-4 bg-white hover:text-primary transition rounded-md"
-              >
-                About
-              </Link>
-            </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link
+                  href="/about"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                >
+                  About
+                </Link>
+              </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <Link
-                href="/contact"
-                className="px-4 bg-white hover:text-primary transition rounded-md"
-              >
-                Contact
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+              <NavigationMenuItem>
+                <Link
+                  href="/contact"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                >
+                  Contact
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={toggleMenu}
-          className="md:hidden p-2 hover:bg-accent rounded-lg transition"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          {/* Theme Toggle Button - Desktop */}
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun className="w-5 h-5 text-yellow-500" />
+              ) : (
+                <Moon className="w-5 h-5 text-gray-700" />
+              )}
+            </button>
+          )}
+        </div>
+
+        {/* Mobile: Menu Button + Theme Toggle */}
+        <div className="md:hidden flex items-center gap-2">
+          {/* Theme Toggle Button - Mobile */}
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun className="w-5 h-5 text-yellow-500" />
+              ) : (
+                <Moon className="w-5 h-5 text-gray-700" />
+              )}
+            </button>
+          )}
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={toggleMenu}
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <X size={24} className="text-gray-900 dark:text-white" />
+            ) : (
+              <Menu size={24} className="text-gray-900 dark:text-white" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden border-t bg-white">
+        <div className="md:hidden border-t dark:border-gray-800 bg-white dark:bg-gray-900">
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link
               href="/"
-              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
               onClick={closeMenu}
             >
               Home
             </Link>
             <Link
               href="/projects"
-              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
               onClick={closeMenu}
             >
               Projects
             </Link>
             <Link
               href="/about"
-              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
               onClick={closeMenu}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="px-4 py-2 bg-white/90 hover:bg-accent rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
               onClick={closeMenu}
             >
               Contact
