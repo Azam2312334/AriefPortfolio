@@ -1,3 +1,200 @@
+@media (min-width: 640px) {
+  .bento-card {
+    padding: 2rem;
+  }
+}
+
+/* ============================================
+   CONTACT PAGE STYLES
+   ============================================ */
+
+/* Contact Cards */
+.contact-card {
+  padding: 1.5rem;
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.5s;
+}
+
+.contact-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(128, 128, 128, 0.2);
+}
+
+.dark .contact-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark .contact-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+@media (min-width: 640px) {
+  .contact-card {
+    padding: 2rem;
+  }
+}
+
+/* Contact Icon Circle */
+.contact-icon-circle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(128, 128, 128, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+  transition: all 0.5s;
+}
+
+.contact-card:hover .contact-icon-circle {
+  border: 2px solid rgba(128, 128, 128, 0.4);
+  transform: scale(1.1) rotate(6deg);
+}
+
+.dark .contact-icon-circle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .contact-card:hover .contact-icon-circle {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+@media (min-width: 640px) {
+  .contact-icon-circle {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* Contact Icon */
+.contact-icon {
+  width: 2rem;
+  height: 2rem;
+  color: rgb(96, 165, 250);
+  transition: color 0.3s;
+}
+
+.contact-card:hover .contact-icon {
+  color: rgb(147, 197, 253);
+}
+
+.dark .contact-icon {
+  color: rgb(96, 165, 250);
+}
+
+.dark .contact-card:hover .contact-icon {
+  color: rgb(147, 197, 253);
+}
+
+@media (min-width: 640px) {
+  .contact-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Contact Decorative Corner */
+.contact-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5rem;
+  height: 5rem;
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.2), transparent);
+  border-bottom-left-radius: 9999px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.contact-card:hover .contact-corner {
+  opacity: 1;
+}
+
+/* Contact Click Indicator */
+.contact-indicator {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.contact-card:hover .contact-indicator {
+  opacity: 1;
+}
+
+.contact-indicator-ring {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid rgb(96, 165, 250);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .contact-indicator-ring {
+  border: 2px solid rgb(96, 165, 250);
+}
+
+.contact-indicator-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: rgb(96, 165, 250);
+  border-radius: 9999px;
+}
+
+.dark .contact-indicator-dot {
+  background: rgb(96, 165, 250);
+}
+
+/* ============================================
+   SHARED SCROLLBAR STYLES
+   ============================================ */
+
+/* Custom scrollbar for overflow sections */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 3px;
+}
+
+.dark .scrollbar-thin {
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.5);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -455,4 +652,459 @@
 
 .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
+}
+
+/* Project Cards */
+.project-card {
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.5s;
+}
+
+.project-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(128, 128, 128, 0.2);
+}
+
+.dark .project-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark .project-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+/* Project Image Border */
+.project-img-border {
+  border: 4px solid rgba(128, 128, 128, 0.2);
+}
+
+.project-card:hover .project-img-border {
+  border: 4px solid rgba(128, 128, 128, 0.4);
+}
+
+.dark .project-img-border {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .project-card:hover .project-img-border {
+  border: 4px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Project Link */
+.project-link {
+  color: rgb(59, 130, 246);
+}
+
+.project-link:hover {
+  color: rgb(96, 165, 250);
+}
+
+.dark .project-link {
+  color: rgb(96, 165, 250);
+}
+
+.dark .project-link:hover {
+  color: rgb(147, 197, 253);
+}
+
+/* Project Decorative Corner */
+.project-corner {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.2), transparent);
+}
+
+.dark .project-corner {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.2), transparent);
+}
+
+/* Bento Cards */
+.bento-card {
+  padding: 1.5rem;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  border-radius: 1.5rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+  transform: translateY(0);
+}
+
+.bento-card:hover {
+  border-color: rgba(128, 128, 128, 0.3);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(128, 128, 128, 0.15),
+              0 10px 20px rgba(128, 128, 128, 0.1);
+}
+
+.dark .bento-card {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .bento-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15),
+              0 10px 20px rgba(59, 130, 246, 0.1);
+}
+
+/* Bento card backgrounds */
+.bento-blue {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+}
+
+.dark .bento-blue {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+}
+
+.bento-green {
+  background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.1), rgba(20, 184, 166, 0.1));
+}
+
+.dark .bento-green {
+  background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.1), rgba(20, 184, 166, 0.1));
+}
+
+.bento-orange {
+  background: linear-gradient(to bottom right, rgba(249, 115, 22, 0.1), rgba(236, 72, 153, 0.1));
+}
+
+.dark .bento-orange {
+  background: linear-gradient(to bottom right, rgba(249, 115, 22, 0.1), rgba(236, 72, 153, 0.1));
+}
+
+.bento-purple {
+  background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+}
+
+.dark .bento-purple {
+  background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+}
+
+.bento-cyan {
+  background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+}
+
+.dark .bento-cyan {
+  background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+}
+
+.bento-yellow {
+  background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.1), rgba(239, 68, 68, 0.1));
+}
+
+.dark .bento-yellow {
+  background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.1), rgba(239, 68, 68, 0.1));
+}
+
+.bento-indigo {
+  background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+}
+
+.dark .bento-indigo {
+  background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+}
+
+/* Bento overlays */
+.bento-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.bento-card:hover .bento-overlay {
+  opacity: 1;
+}
+
+/* Add shimmer effect on hover */
+.bento-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.7s ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bento-card:hover::before {
+  left: 100%;
+}
+
+.dark .bento-card::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+}
+
+.bento-overlay-blue {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.05), rgba(147, 51, 234, 0.05));
+}
+
+.bento-overlay-green {
+  background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.05), rgba(20, 184, 166, 0.05));
+}
+
+.bento-overlay-orange {
+  background: linear-gradient(to bottom right, rgba(249, 115, 22, 0.05), rgba(236, 72, 153, 0.05));
+}
+
+.bento-overlay-purple {
+  background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05));
+}
+
+.bento-overlay-cyan {
+  background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.05), rgba(59, 130, 246, 0.05));
+}
+
+.bento-overlay-yellow {
+  background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.05), rgba(239, 68, 68, 0.05));
+}
+
+.bento-overlay-indigo {
+  background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
+}
+
+/* Bento icons */
+.bento-icon-blue {
+  color: rgb(96, 165, 250);
+  transition: all 0.3s ease-in-out;
+}
+
+.bento-card:hover .bento-icon-blue {
+  color: rgb(147, 197, 253);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.bento-icon-green {
+  color: rgb(74, 222, 128);
+  transition: all 0.3s ease-in-out;
+}
+
+.bento-card:hover .bento-icon-green {
+  color: rgb(134, 239, 172);
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.bento-icon-orange {
+  color: rgb(251, 146, 60);
+  transition: all 0.3s ease-in-out;
+}
+
+.bento-card:hover .bento-icon-orange {
+  color: rgb(253, 186, 116);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.bento-icon-cyan {
+  color: rgb(34, 211, 238);
+  transition: all 0.3s ease-in-out;
+}
+
+.bento-card:hover .bento-icon-cyan {
+  color: rgb(103, 232, 249);
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.bento-icon-yellow {
+  color: rgb(250, 204, 21);
+  transition: all 0.3s ease-in-out;
+}
+
+.bento-card:hover .bento-icon-yellow {
+  color: rgb(253, 224, 71);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.bento-icon-indigo {
+  color: rgb(129, 140, 248);
+  transition: all 0.3s ease-in-out;
+}
+
+.bento-card:hover .bento-icon-indigo {
+  color: rgb(165, 180, 252);
+  transform: scale(1.1) rotate(-5deg);
+}
+
+/* Bento stat number */
+.bento-stat {
+  color: rgb(96, 165, 250);
+  transition: all 0.3s ease-in-out;
+}
+
+.bento-card:hover .bento-stat {
+  color: rgb(147, 197, 253);
+  transform: scale(1.15);
+  text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+}
+
+@media (min-width: 640px) {
+  .bento-card {
+    padding: 2rem;
+  }
+}
+
+/* Contact Cards */
+.contact-card {
+  padding: 1.5rem;
+  border: 1px solid rgba(128, 128, 128, 0.1);
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.5s;
+}
+
+.contact-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(128, 128, 128, 0.2);
+}
+
+.dark .contact-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark .contact-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+@media (min-width: 640px) {
+  .contact-card {
+    padding: 2rem;
+  }
+}
+
+/* Contact Icon Circle */
+.contact-icon-circle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(128, 128, 128, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1);
+  transition: all 0.5s;
+}
+
+.contact-card:hover .contact-icon-circle {
+  border: 2px solid rgba(128, 128, 128, 0.4);
+  transform: scale(1.1) rotate(6deg);
+}
+
+.dark .contact-icon-circle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .contact-card:hover .contact-icon-circle {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+@media (min-width: 640px) {
+  .contact-icon-circle {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* Contact Icon */
+.contact-icon {
+  width: 2rem;
+  height: 2rem;
+  color: rgb(96, 165, 250);
+  transition: color 0.3s;
+}
+
+.contact-card:hover .contact-icon {
+  color: rgb(147, 197, 253);
+}
+
+.dark .contact-icon {
+  color: rgb(96, 165, 250);
+}
+
+.dark .contact-card:hover .contact-icon {
+  color: rgb(147, 197, 253);
+}
+
+@media (min-width: 640px) {
+  .contact-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Contact Decorative Corner */
+.contact-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5rem;
+  height: 5rem;
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.2), transparent);
+  border-bottom-left-radius: 9999px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.contact-card:hover .contact-corner {
+  opacity: 1;
+}
+
+/* Contact Click Indicator */
+.contact-indicator {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.contact-card:hover .contact-indicator {
+  opacity: 1;
+}
+
+.contact-indicator-ring {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid rgb(96, 165, 250);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .contact-indicator-ring {
+  border: 2px solid rgb(96, 165, 250);
+}
+
+.contact-indicator-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: rgb(96, 165, 250);
+  border-radius: 9999px;
+}
+
+.dark .contact-indicator-dot {
+  background: rgb(96, 165, 250);
 }

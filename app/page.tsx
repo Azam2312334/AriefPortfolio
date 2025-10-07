@@ -1,5 +1,6 @@
-"use client";
+"use client"; //client side rendering
 
+//imports from libraries
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import gsap from "gsap";
@@ -23,6 +24,7 @@ export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const circleRef = useRef<HTMLDivElement>(null);
 
+  // Ensure the component is mounted before rendering
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -44,6 +46,7 @@ export default function Home() {
     };
   }, []);
 
+  // Scroll-based animations for hero section
   useEffect(() => {
     const handleScroll = () => {
       if (!circleRef.current || !heroContentRef.current) return;
@@ -68,6 +71,7 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Simulate loading state for 1.5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -76,6 +80,7 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  // GSAP animations
   useEffect(() => {
     if (isLoading) return;
 
@@ -105,6 +110,7 @@ export default function Home() {
       }
     );
 
+    // Projects Section Animation
     gsap.fromTo(
       projectsRef.current,
       { opacity: 0, y: 30 },
@@ -123,6 +129,7 @@ export default function Home() {
       }
     );
 
+    // About Section Animation
     gsap.fromTo(
       aboutRef.current,
       { opacity: 0, y: 30 },
@@ -141,6 +148,7 @@ export default function Home() {
       }
     );
 
+    // Contact Section Animation
     gsap.fromTo(
       contactRef.current,
       { opacity: 0, y: 30 },
@@ -159,6 +167,7 @@ export default function Home() {
       }
     );
 
+    // Intro Section Animation
     const introTimeline = gsap.timeline();
     introTimeline.from(".intro-heading", {
       y: 30,
@@ -191,7 +200,7 @@ export default function Home() {
         repeat: -1,
       },
     });
-
+    // Cleanup function to kill animations and ScrollTriggers
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       gsap.killTweensOf(".intro-heading");
@@ -199,11 +208,13 @@ export default function Home() {
     };
   }, [isMobile, isLoading]);
 
+  // 3D Model Component
   function Model() {
     const { scene } = useGLTF("/models/scene.gltf");
     return <primitive object={scene} scale={isMobile ? 0.5 : 0.7} />;
   }
 
+  // 3D Icon Component
   function Icon3D() {
     return (
       <div className={`${isMobile ? "w-16 h-16" : "w-24 h-24"} mx-auto mb-4`}>
@@ -295,6 +306,7 @@ export default function Home() {
     );
   }
 
+  // Main Content
   return (
     <main className="relative min-h-screen overflow-x-hidden page-bg">
       <div className="fixed inset-0 pointer-events-none stars-bg">
@@ -351,6 +363,7 @@ export default function Home() {
         </svg>
       </div>
 
+      {/* Hero Section */}
       <div
         style={{ height: isMobile ? "auto" : "100vh", position: "relative" }}
       >
@@ -539,6 +552,7 @@ export default function Home() {
         </section>
       </div>
 
+      {/* Projects Section */}
       <section
         ref={projectsRef}
         className="flex flex-col items-center justify-center min-h-screen lg:h-screen text-foreground px-4 py-12 lg:py-8"
