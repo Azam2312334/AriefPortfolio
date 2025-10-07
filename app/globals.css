@@ -121,27 +121,6 @@
   }
 }
 
-/* Hide scrollbar completely for timeline container */
-.timeline-container::-webkit-scrollbar {
-  display: none;
-}
-
-.timeline-container {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-  scroll-behavior: smooth;
-  /* Allow vertical expansion for proper card positioning */
-  min-height: 600px;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-/* Prevent text selection during drag */
-.timeline-container.active {
-  user-select: none;
-  cursor: grabbing !important;
-}
-
 /* Navbar styling */
 .navbar-bg {
   background: #ffffff;
@@ -153,12 +132,327 @@
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Navigation dropdown styling */
-.nav-dropdown {
-  background: #ffffff;
+/* Page background */
+.page-bg {
+  background: linear-gradient(135deg, #f9f9f9 0%, #eaeaea 25%, #f9f9f9 100%);
 }
 
-.dark .nav-dropdown {
+.dark .page-bg {
   background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%);
 }
 
+/* Stars background */
+.stars-bg {
+  opacity: 0.5;
+}
+
+.dark .stars-bg {
+  opacity: 0.3;
+}
+
+.star {
+  fill: rgba(30, 30, 30, 0.9);
+}
+
+.dark .star {
+  fill: rgba(255, 255, 255, 0.8);
+}
+
+.star-line {
+  stroke: rgba(30, 30, 30, 0.25);
+  stroke-width: 0.05;
+}
+
+.dark .star-line {
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 0.05;
+}
+
+/* Hero circle */
+.hero-circle {
+  background: radial-gradient(circle, rgba(128, 128, 128, 0.2) 0%, rgba(128, 128, 128, 0.1) 50%, transparent 100%);
+  border: 2px solid rgba(128, 128, 128, 0.4);
+  box-shadow: 0 0 100px rgba(128, 128, 128, 0.3), inset 0 0 100px rgba(128, 128, 128, 0.1);
+}
+
+.dark .hero-circle {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 100px rgba(255, 255, 255, 0.3), inset 0 0 100px rgba(255, 255, 255, 0.1);
+}
+
+/* Intro gradient text */
+.intro-gradient {
+  background: linear-gradient(to right, #333 0%, #666 50%, #333 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .intro-gradient {
+  background: linear-gradient(to right, #fff 0%, #999 50%, #fff 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glass buttons */
+.btn-glass {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background: rgba(128, 128, 128, 0.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  color: #333;
+  text-align: center;
+  transition: all 0.3s;
+  font-size: 0.875rem;
+}
+
+.btn-glass:hover {
+  background: rgba(128, 128, 128, 0.3);
+}
+
+.dark .btn-glass {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.dark .btn-glass:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (min-width: 1024px) {
+  .btn-glass {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Tech rings and spokes */
+.tech-ring {
+  stroke: rgba(128, 128, 128, 0.3);
+}
+
+.dark .tech-ring {
+  stroke: rgba(255, 255, 255, 0.3);
+}
+
+.tech-spoke {
+  stroke: rgba(128, 128, 128, 0.4);
+}
+
+.dark .tech-spoke {
+  stroke: rgba(255, 255, 255, 0.4);
+}
+
+/* Profile image */
+.profile-img {
+  border: 4px solid #666;
+  box-shadow: 0 0 50px rgba(128, 128, 128, 0.5);
+  transition: all 0.3s;
+}
+
+.profile-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 60px rgba(128, 128, 128, 0.7);
+}
+
+.dark .profile-img {
+  border: 4px solid #fff;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+}
+
+.dark .profile-img:hover {
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.7);
+}
+
+/* Tech logos */
+.tech-logo {
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(128, 128, 128, 0.4);
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tech-logo:hover {
+  transform: scale(1.25);
+  box-shadow: 0 10px 25px rgba(128, 128, 128, 0.4);
+  border-color: rgba(128, 128, 128, 0.8);
+}
+
+.dark .tech-logo {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark .tech-logo:hover {
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Tech tooltip */
+.tech-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.tech-logo:hover + .tech-tooltip,
+.group:hover .tech-tooltip {
+  opacity: 1;
+}
+
+.dark .tech-tooltip {
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+/* Glass cards */
+.card-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: all 0.3s ease-out;
+  text-align: center;
+}
+
+.card-glass:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(128, 128, 128, 0.3);
+}
+
+.dark .card-glass {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .card-glass:hover {
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.3);
+}
+
+@media (min-width: 1024px) {
+  .card-glass {
+    padding: 1.5rem;
+  }
+}
+
+/* Timeline cards */
+.card-timeline {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  transition: all 0.3s;
+}
+
+.card-timeline:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.dark .card-timeline {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .card-timeline:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Timeline line */
+.timeline-line {
+  background: rgba(128, 128, 128, 0.3);
+}
+
+.dark .timeline-line {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Timeline dot */
+.timeline-dot {
+  width: 1rem;
+  height: 1rem;
+  background: #666;
+  border-radius: 50%;
+  border: 4px solid #f9f9f9;
+}
+
+.dark .timeline-dot {
+  background: #fff;
+  border: 4px solid #0c0c0c;
+}
+
+/* Hide scrollbar completely for timeline container */
+.timeline-container::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  min-height: 600px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* Prevent text selection during drag */
+.timeline-container.active {
+  user-select: none;
+  cursor: grabbing !important;
+}
+
+/* Custom scrollbar for overflow sections */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 3px;
+}
+
+.dark .scrollbar-thin {
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.5);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
