@@ -28,14 +28,19 @@ export default function About() {
   }, []);
 
   const techStack = [
+    { name: "JavaScript", color: "bg-yellow-400" },
     { name: "TypeScript", color: "bg-blue-500" },
+    { name: "Python", color: "bg-blue-600" },
+    { name: "HTML", color: "bg-orange-500" },
+    { name: "PHP", color: "bg-indigo-600" },
     { name: "React", color: "bg-cyan-500" },
+    { name: "React Native", color: "bg-cyan-600" },
     { name: "Next.js", color: "bg-gray-900 dark:bg-white" },
     { name: "Node.js", color: "bg-green-500" },
     { name: "Tailwind", color: "bg-teal-400" },
+    { name: "MySQL", color: "bg-blue-700" },
     { name: "Prisma", color: "bg-indigo-500" },
   ];
-
   return (
     <main className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 text-foreground py-12 sm:py-16 page-bg">
       {/* Starfield Background */}
@@ -117,27 +122,27 @@ export default function About() {
         </div>
 
         {/* Journey box */}
-        <div className="bento-card bento-orange md:col-span-2 lg:col-span-2 md:row-span-1">
-          <div className="bento-overlay bento-overlay-orange"></div>
+        <div className="relative md:col-span-2 lg:col-span-2 md:row-span-1 bg-orange-900/30 backdrop-blur-sm border border-orange-500/30 rounded-2xl p-6 hover:border-orange-400/50 transition-all duration-300 overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
-              <Laptop className="w-6 h-6 bento-icon-orange" />
+              <Laptop className="w-6 h-6 text-orange-400" />
               <h3 className="text-xl font-bold">My Journey</h3>
             </div>
-            <p className="text-muted-foreground leading-relaxed text-sm">
-              Started with{" "}
-              <span className="text-foreground font-semibold">
-                React & Next.js
-              </span>
-              , expanded into backend with{" "}
-              <span className="text-foreground font-semibold">
-                Prisma & Neon
-              </span>
-              , and built mobile apps with{" "}
-              <span className="text-foreground font-semibold">
-                React Native
-              </span>
-              .
+            <p className="text-gray-300 leading-relaxed text-sm">
+              I built my foundation with{" "}
+              <span className="text-white font-semibold">
+                HTML, CSS, JavaScript, PHP & MySQL
+              </span>{" "}
+              during my degree studies. I developed mobile apps with{" "}
+              <span className="text-white font-semibold">
+                React Native & TypeScript
+              </span>{" "}
+              for my final year project, and later mastered{" "}
+              <span className="text-white font-semibold">
+                Next.js, Prisma & PostgreSQL
+              </span>{" "}
+              during my internship.
             </p>
           </div>
         </div>

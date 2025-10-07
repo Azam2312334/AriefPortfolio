@@ -23,6 +23,10 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const circleRef = useRef<HTMLDivElement>(null);
+  const techLogosContainerRef = useRef<HTMLDivElement>(null);
+  const rotationAnimationRef = useRef<gsap.core.Tween | null>(null);
+  const [hoveredLogo, setHoveredLogo] = useState<string | null>(null);
+  const logoItemsRef = useRef<HTMLDivElement[]>([]);
 
   // Ensure the component is mounted before rendering
   useEffect(() => {
@@ -79,6 +83,41 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Rotation animation for tech logos
+  useEffect(() => {
+    if (isLoading || !techLogosContainerRef.current) return;
+
+    // Create continuous rotation animation for the container
+    rotationAnimationRef.current = gsap.to(techLogosContainerRef.current, {
+      rotation: 360,
+      duration: 20,
+      ease: "none",
+      repeat: -1,
+      onUpdate: function () {
+        // Get current rotation value
+        const containerRotation = gsap.getProperty(
+          techLogosContainerRef.current,
+          "rotation"
+        );
+
+        // Counter-rotate each logo item to keep them upright
+        logoItemsRef.current.forEach((item) => {
+          if (item) {
+            gsap.set(item, {
+              rotation: -containerRotation,
+            });
+          }
+        });
+      },
+    });
+
+    return () => {
+      if (rotationAnimationRef.current) {
+        rotationAnimationRef.current.kill();
+      }
+    };
+  }, [isLoading]);
 
   // GSAP animations
   useEffect(() => {
@@ -457,6 +496,28 @@ export default function Home() {
             <div className="flex-shrink-0 relative order-1 lg:order-2 mb-8 lg:mb-0 flex justify-center">
               <div
                 className={`relative ${isMobile ? "w-80 h-80" : "w-96 h-96"}`}
+                onMouseEnter={() => {
+                  if (!isMobile && rotationAnimationRef.current) {
+                    rotationAnimationRef.current.pause();
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (!isMobile && rotationAnimationRef.current) {
+                    rotationAnimationRef.current.resume();
+                  }
+                  setHoveredLogo(null);
+                }}
+                onTouchStart={() => {
+                  if (isMobile && rotationAnimationRef.current) {
+                    rotationAnimationRef.current.pause();
+                  }
+                }}
+                onTouchEnd={() => {
+                  if (isMobile && rotationAnimationRef.current) {
+                    rotationAnimationRef.current.resume();
+                  }
+                  setTimeout(() => setHoveredLogo(null), 100);
+                }}
               >
                 <svg
                   className="absolute inset-0 w-full h-full"
@@ -511,41 +572,102 @@ export default function Home() {
                   />
                 </div>
 
-                {techLogos.map((logo, i) => {
-                  const angle = (logo.angle * Math.PI) / 180;
-                  const distance = isMobile ? 140 : 180;
-                  const x =
-                    50 + (distance * Math.cos(angle)) / (isMobile ? 3.2 : 4);
-                  const y =
-                    50 + (distance * Math.sin(angle)) / (isMobile ? 3.2 : 4);
-                  return (
-                    <div
-                      key={i}
-                      className="absolute z-10 pointer-events-auto cursor-pointer group"
-                      style={{
-                        left: `${x}%`,
-                        top: `${y}%`,
-                        transform: "translate(-50%, -50%)",
-                      }}
-                    >
+                <div
+                  ref={techLogosContainerRef}
+                  className="absolute inset-0"
+                  style={{ transformOrigin: "center center" }}
+                >
+                  {techLogos.map((logo, i) => {
+                    const angle = (logo.angle * Math.PI) / 180;
+                    const distance = isMobile ? 140 : 180;
+                    const x =
+                      50 + (distance * Math.cos(angle)) / (isMobile ? 3.2 : 4);
+                    const y =
+                      50 + (distance * Math.sin(angle)) / (isMobile ? 3.2 : 4);
+                    return (
                       <div
-                        className={`${
-                          isMobile ? "w-10 h-10" : "w-12 h-12"
-                        } tech-logo`}
+                        key={i}
+                        ref={(el) => {
+                          if (el) logoItemsRef.current[i] = el;
+                        }}
+                        className="absolute tech-logo-item"
                         style={{
-                          transform: `rotate(${Math.random() * 30 - 15}deg)`,
+                          left: `${x}%`,
+                          top: `${y}%`,
+                          transform: "translate(-50%, -50%)",
+                          zIndex: 30,
                         }}
                       >
-                        <img
-                          src={logo.src}
-                          alt={logo.alt}
-                          className="w-full h-full object-cover"
-                        />
+                        <div
+                          className={`${
+                            isMobile ? "w-10 h-10" : "w-12 h-12"
+                          } tech-logo cursor-pointer`}
+                          onMouseEnter={() => {
+                            if (!isMobile) {
+                              setHoveredLogo(logo.alt);
+                            }
+                          }}
+                          onMouseLeave={() => {
+                            if (!isMobile) {
+                              setHoveredLogo(null);
+                            }
+                          }}
+                          onTouchStart={() => {
+                            if (isMobile) {
+                              setHoveredLogo(logo.alt);
+                            }
+                          }}
+                        >
+                          <img
+                            src={logo.src}
+                            alt={logo.alt}
+                            className="w-full h-full object-cover pointer-events-none select-none"
+                          />
+                        </div>
                       </div>
-                      <div className="tech-tooltip">{logo.alt}</div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+
+                {/* Tooltip layer - outside rotation */}
+                {hoveredLogo && (
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ zIndex: 100 }}
+                  >
+                    {techLogos.map((logo, i) => {
+                      if (logo.alt !== hoveredLogo) return null;
+                      const angle = (logo.angle * Math.PI) / 180;
+                      const distance = isMobile ? 140 : 180;
+                      const x =
+                        50 +
+                        (distance * Math.cos(angle)) / (isMobile ? 3.2 : 4);
+                      const y =
+                        50 +
+                        (distance * Math.sin(angle)) / (isMobile ? 3.2 : 4);
+                      return (
+                        <div
+                          key={`tooltip-${i}`}
+                          className="absolute"
+                          style={{
+                            left: `${x}%`,
+                            top: `${y}%`,
+                            transform: "translate(-50%, -50%)",
+                          }}
+                        >
+                          <div
+                            className="absolute left-1/2 -translate-x-1/2 bg-black text-white px-3 py-1.5 rounded-md text-sm whitespace-nowrap shadow-lg font-medium"
+                            style={{
+                              top: isMobile ? "-3rem" : "-3rem",
+                            }}
+                          >
+                            {logo.alt}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
