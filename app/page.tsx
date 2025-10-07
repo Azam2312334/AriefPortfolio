@@ -522,7 +522,7 @@ export default function Home() {
                 <svg
                   className="absolute inset-0 w-full h-full"
                   viewBox="0 0 400 400"
-                  style={{ zIndex: 1 }}
+                  style={{ zIndex: 5 }}
                 >
                   {[...Array(8)].map((_, ring) => {
                     const radius = 40 + ring * 25;
@@ -575,7 +575,7 @@ export default function Home() {
                 <div
                   ref={techLogosContainerRef}
                   className="absolute inset-0"
-                  style={{ transformOrigin: "center center" }}
+                  style={{ transformOrigin: "center center", zIndex: 40 }}
                 >
                   {techLogos.map((logo, i) => {
                     const angle = (logo.angle * Math.PI) / 180;
@@ -595,7 +595,7 @@ export default function Home() {
                           left: `${x}%`,
                           top: `${y}%`,
                           transform: "translate(-50%, -50%)",
-                          zIndex: 30,
+                          zIndex: 50,
                         }}
                       >
                         <div
