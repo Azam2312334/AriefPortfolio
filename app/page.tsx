@@ -903,7 +903,7 @@ export default function Home() {
                         Native, Node.js, and Firebase.
                       </p>
                     </div>
-                    <div className="mt-4 text-center">
+                    <div className="mt-[-2] text-center">
                       <span className="text-muted-foreground text-sm font-medium">
                         2022
                       </span>
