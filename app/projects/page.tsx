@@ -60,7 +60,7 @@ export default function Projects() {
       description:
         "A web-based booking system that allows users to create, manage, and track reservations efficiently. It is designed with a responsive interface and integrates essential features for user authentication, booking management, and real-time availability updates.",
       link: "https://github.com/mdaminz/catering-booking-web",
-      image: "/images/projects/MysukanLogo1.png",
+      image: "/images/projects/catering.jpg",
       gradient: "from-amber-500/20 to-rose-500/20",
     },
     {
@@ -79,201 +79,61 @@ export default function Projects() {
   ];
 
   return (
-    <main
-      className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 text-white py-12 sm:py-16"
-      style={{
-        background:
-          "linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 25%, #0c0c0c 100%)",
-      }}
-    >
+    <main className="relative min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 text-foreground py-12 sm:py-16 page-bg">
       {/* Starfield with connecting lines - Full Page */}
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none stars-bg">
         <svg
           className="absolute inset-0 w-full h-full"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
-          style={{ opacity: isMobile ? 0.2 : 0.3 }}
         >
           {/* Dots */}
-          <circle cx="12" cy="15" r="0.15" fill="rgba(255,255,255,0.8)" />
-          <circle cx="28" cy="25" r="0.1" fill="rgba(255,255,255,0.6)" />
-          <circle cx="45" cy="20" r="0.15" fill="rgba(255,255,255,0.9)" />
-          <circle cx="68" cy="35" r="0.1" fill="rgba(255,255,255,0.7)" />
-          <circle cx="85" cy="18" r="0.15" fill="rgba(255,255,255,0.5)" />
-          <circle cx="20" cy="45" r="0.1" fill="rgba(255,255,255,0.8)" />
-          <circle cx="55" cy="55" r="0.15" fill="rgba(255,255,255,0.6)" />
-          <circle cx="75" cy="60" r="0.1" fill="rgba(255,255,255,0.9)" />
-          <circle cx="10" cy="70" r="0.15" fill="rgba(255,255,255,0.4)" />
-          <circle cx="35" cy="75" r="0.1" fill="rgba(255,255,255,0.7)" />
-          <circle cx="60" cy="85" r="0.15" fill="rgba(255,255,255,0.5)" />
-          <circle cx="90" cy="78" r="0.1" fill="rgba(255,255,255,0.8)" />
-          <circle cx="5" cy="35" r="0.1" fill="rgba(255,255,255,0.6)" />
-          <circle cx="38" cy="12" r="0.15" fill="rgba(255,255,255,0.4)" />
-          <circle cx="72" cy="8" r="0.1" fill="rgba(255,255,255,0.9)" />
-          <circle cx="18" cy="65" r="0.15" fill="rgba(255,255,255,0.7)" />
-          <circle cx="48" cy="40" r="0.1" fill="rgba(255,255,255,0.5)" />
-          <circle cx="82" cy="50" r="0.15" fill="rgba(255,255,255,0.6)" />
-          <circle cx="30" cy="60" r="0.1" fill="rgba(255,255,255,0.8)" />
-          <circle cx="65" cy="25" r="0.15" fill="rgba(255,255,255,0.4)" />
-          <circle cx="15" cy="88" r="0.1" fill="rgba(255,255,255,0.6)" />
-          <circle cx="42" cy="92" r="0.15" fill="rgba(255,255,255,0.7)" />
-          <circle cx="78" cy="95" r="0.1" fill="rgba(255,255,255,0.5)" />
-          <circle cx="25" cy="5" r="0.15" fill="rgba(255,255,255,0.8)" />
-          <circle cx="58" cy="8" r="0.1" fill="rgba(255,255,255,0.4)" />
+          <circle cx="12" cy="15" r="0.15" className="star" />
+          <circle cx="28" cy="25" r="0.1" className="star" />
+          <circle cx="45" cy="20" r="0.15" className="star" />
+          <circle cx="68" cy="35" r="0.1" className="star" />
+          <circle cx="85" cy="18" r="0.15" className="star" />
+          <circle cx="20" cy="45" r="0.1" className="star" />
+          <circle cx="55" cy="55" r="0.15" className="star" />
+          <circle cx="75" cy="60" r="0.1" className="star" />
+          <circle cx="10" cy="70" r="0.15" className="star" />
+          <circle cx="35" cy="75" r="0.1" className="star" />
+          <circle cx="60" cy="85" r="0.15" className="star" />
+          <circle cx="90" cy="78" r="0.1" className="star" />
+          <circle cx="5" cy="35" r="0.1" className="star" />
+          <circle cx="38" cy="12" r="0.15" className="star" />
+          <circle cx="72" cy="8" r="0.1" className="star" />
+          <circle cx="18" cy="65" r="0.15" className="star" />
+          <circle cx="48" cy="40" r="0.1" className="star" />
+          <circle cx="82" cy="50" r="0.15" className="star" />
+          <circle cx="30" cy="60" r="0.1" className="star" />
+          <circle cx="65" cy="25" r="0.15" className="star" />
+          <circle cx="15" cy="88" r="0.1" className="star" />
+          <circle cx="42" cy="92" r="0.15" className="star" />
+          <circle cx="78" cy="95" r="0.1" className="star" />
+          <circle cx="25" cy="5" r="0.15" className="star" />
+          <circle cx="58" cy="8" r="0.1" className="star" />
 
           {/* Connecting Lines */}
-          <line
-            x1="12"
-            y1="15"
-            x2="28"
-            y2="25"
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="28"
-            y1="25"
-            x2="45"
-            y2="20"
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="45"
-            y1="20"
-            x2="65"
-            y2="25"
-            stroke="rgba(255,255,255,0.12)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="68"
-            y1="35"
-            x2="55"
-            y2="55"
-            stroke="rgba(255,255,255,0.08)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="20"
-            y1="45"
-            x2="35"
-            y2="75"
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="55"
-            y1="55"
-            x2="75"
-            y2="60"
-            stroke="rgba(255,255,255,0.12)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="75"
-            y1="60"
-            x2="90"
-            y2="78"
-            stroke="rgba(255,255,255,0.09)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="10"
-            y1="70"
-            x2="18"
-            y2="65"
-            stroke="rgba(255,255,255,0.11)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="38"
-            y1="12"
-            x2="48"
-            y2="40"
-            stroke="rgba(255,255,255,0.13)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="72"
-            y1="8"
-            x2="85"
-            y2="18"
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="48"
-            y1="40"
-            x2="68"
-            y2="35"
-            stroke="rgba(255,255,255,0.08)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="82"
-            y1="50"
-            x2="75"
-            y2="60"
-            stroke="rgba(255,255,255,0.14)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="30"
-            y1="60"
-            x2="35"
-            y2="75"
-            stroke="rgba(255,255,255,0.09)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="5"
-            y1="35"
-            x2="12"
-            y2="15"
-            stroke="rgba(255,255,255,0.11)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="15"
-            y1="88"
-            x2="42"
-            y2="92"
-            stroke="rgba(255,255,255,0.1)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="42"
-            y1="92"
-            x2="60"
-            y2="85"
-            stroke="rgba(255,255,255,0.12)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="78"
-            y1="95"
-            x2="90"
-            y2="78"
-            stroke="rgba(255,255,255,0.08)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="25"
-            y1="5"
-            x2="38"
-            y2="12"
-            stroke="rgba(255,255,255,0.13)"
-            strokeWidth="0.05"
-          />
-          <line
-            x1="58"
-            y1="8"
-            x2="65"
-            y2="25"
-            stroke="rgba(255,255,255,0.11)"
-            strokeWidth="0.05"
-          />
+          <line x1="12" y1="15" x2="28" y2="25" className="star-line" />
+          <line x1="28" y1="25" x2="45" y2="20" className="star-line" />
+          <line x1="45" y1="20" x2="65" y2="25" className="star-line" />
+          <line x1="68" y1="35" x2="55" y2="55" className="star-line" />
+          <line x1="20" y1="45" x2="35" y2="75" className="star-line" />
+          <line x1="55" y1="55" x2="75" y2="60" className="star-line" />
+          <line x1="75" y1="60" x2="90" y2="78" className="star-line" />
+          <line x1="10" y1="70" x2="18" y2="65" className="star-line" />
+          <line x1="38" y1="12" x2="48" y2="40" className="star-line" />
+          <line x1="72" y1="8" x2="85" y2="18" className="star-line" />
+          <line x1="48" y1="40" x2="68" y2="35" className="star-line" />
+          <line x1="82" y1="50" x2="75" y2="60" className="star-line" />
+          <line x1="30" y1="60" x2="35" y2="75" className="star-line" />
+          <line x1="5" y1="35" x2="12" y2="15" className="star-line" />
+          <line x1="15" y1="88" x2="42" y2="92" className="star-line" />
+          <line x1="42" y1="92" x2="60" y2="85" className="star-line" />
+          <line x1="78" y1="95" x2="90" y2="78" className="star-line" />
+          <line x1="25" y1="5" x2="38" y2="12" className="star-line" />
+          <line x1="58" y1="8" x2="65" y2="25" className="star-line" />
         </svg>
       </div>
 
@@ -285,7 +145,7 @@ export default function Projects() {
         {projects.map((project, index) => (
           <div
             key={index}
-            className="group relative p-6 sm:p-8 border border-white/10 rounded-2xl backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 overflow-hidden"
+            className="project-card group relative p-6 sm:p-8 overflow-hidden"
           >
             {/* Gradient overlay on hover */}
             <div
@@ -306,7 +166,7 @@ export default function Projects() {
                 ) : project.customContent ? (
                   project.customContent
                 ) : (
-                  <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 group-hover:border-white/40 transition-all duration-500">
+                  <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl project-img-border transition-all duration-500">
                     <img
                       src={project.image ?? ""}
                       alt={project.title}
@@ -319,10 +179,10 @@ export default function Projects() {
 
             {/* Content */}
             <div className="relative z-10">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 group-hover:text-white transition-colors duration-300 text-center">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 group-hover:text-foreground transition-colors duration-300 text-center">
                 {project.title}
               </h2>
-              <p className="text-gray-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base text-center">
+              <p className="text-muted-foreground mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base text-center">
                 {project.description}
               </p>
               <div className="flex justify-center">
@@ -330,7 +190,7 @@ export default function Projects() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold group-hover:gap-3 transition-all duration-300"
+                  className="project-link inline-flex items-center gap-2 font-semibold group-hover:gap-3 transition-all duration-300"
                 >
                   View Project
                   <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
@@ -339,7 +199,7 @@ export default function Projects() {
             </div>
 
             {/* Decorative corner */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="project-corner absolute top-0 right-0 w-20 h-20 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
         ))}
       </div>
