@@ -24,7 +24,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white dark:bg-gray-900 border-b dark:border-gray-800 z-[999]">
+    <header className="fixed top-0 left-0 w-full border-b z-[999] navbar-bg">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo / Name */}
         <Link
@@ -42,7 +42,7 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <Link
                   href="/"
-                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-gray-300 transition rounded-md"
                 >
                   Home
                 </Link>
@@ -51,7 +51,7 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <Link
                   href="/projects"
-                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-gray-300 transition rounded-md"
                 >
                   Projects
                 </Link>
@@ -60,7 +60,7 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <Link
                   href="/about"
-                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-gray-300 transition rounded-md"
                 >
                   About
                 </Link>
@@ -69,7 +69,7 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <Link
                   href="/contact"
-                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition rounded-md"
+                  className="px-4 bg-transparent text-gray-900 dark:text-white hover:text-primary dark:hover:text-gray-300 transition rounded-md"
                 >
                   Contact
                 </Link>
@@ -81,11 +81,11 @@ export default function Navbar() {
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 backdrop-blur-md border dark:border-white/20 transition-all"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-yellow-500" />
+                <Sun className="w-5 h-5 text-yellow-400" />
               ) : (
                 <Moon className="w-5 h-5 text-gray-700" />
               )}
@@ -99,11 +99,11 @@ export default function Navbar() {
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 backdrop-blur-md border dark:border-white/20 transition-all"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-yellow-500" />
+                <Sun className="w-5 h-5 text-yellow-400" />
               ) : (
                 <Moon className="w-5 h-5 text-gray-700" />
               )}
@@ -113,7 +113,7 @@ export default function Navbar() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={toggleMenu}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition backdrop-blur-md"
             aria-label="Toggle menu"
           >
             {isOpen ? (
@@ -127,32 +127,32 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden border-t dark:border-gray-800 bg-white dark:bg-gray-900">
+        <div className="md:hidden border-t navbar-bg">
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link
               href="/"
-              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/20 rounded-lg transition backdrop-blur-md border dark:border-white/20"
               onClick={closeMenu}
             >
               Home
             </Link>
             <Link
               href="/projects"
-              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/20 rounded-lg transition backdrop-blur-md border dark:border-white/20"
               onClick={closeMenu}
             >
               Projects
             </Link>
             <Link
               href="/about"
-              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/20 rounded-lg transition backdrop-blur-md border dark:border-white/20"
               onClick={closeMenu}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
+              className="px-4 py-2 bg-gray-50 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/20 rounded-lg transition backdrop-blur-md border dark:border-white/20"
               onClick={closeMenu}
             >
               Contact
