@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, Linkedin, Github } from "lucide-react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,6 +28,10 @@ export default function Home() {
   const rotationAnimationRef = useRef<gsap.core.Tween | null>(null);
   const [hoveredLogo, setHoveredLogo] = useState<string | null>(null);
   const logoItemsRef = useRef<HTMLDivElement[]>([]);
+
+  // New refs for projects scrolling
+  const projectsScrollRef = useRef<HTMLDivElement>(null);
+  const projectsAnimationRef = useRef<gsap.core.Tween | null>(null);
 
   // Ensure the component is mounted before rendering
   useEffect(() => {
@@ -118,6 +123,38 @@ export default function Home() {
       }
     };
   }, [isLoading]);
+
+  // Auto-scroll animation for projects section
+  useEffect(() => {
+    if (isLoading || !projectsScrollRef.current) return;
+
+    const scrollContainer = projectsScrollRef.current;
+
+    // Create seamless infinite loop animation
+    const scroll = () => {
+      const scrollWidth = scrollContainer.scrollWidth;
+      const containerWidth = scrollContainer.offsetWidth;
+      const halfScroll = scrollWidth / 2;
+
+      projectsAnimationRef.current = gsap.to(scrollContainer, {
+        scrollLeft: halfScroll,
+        duration: 20,
+        ease: "none",
+        repeat: -1,
+        modifiers: {
+          scrollLeft: gsap.utils.wrap(0, halfScroll),
+        },
+      });
+    };
+
+    scroll();
+
+    return () => {
+      if (projectsAnimationRef.current) {
+        projectsAnimationRef.current.kill();
+      }
+    };
+  }, [isLoading, isMobile]);
 
   // GSAP animations
   useEffect(() => {
@@ -281,6 +318,30 @@ export default function Home() {
     { src: "/images/projects/postgresql.jpg", alt: "PostgreSQL", angle: 300 },
     { src: "/images/projects/prisma.jpg", alt: "Prisma", angle: 330 },
   ];
+
+  const handleProjectsMouseEnter = () => {
+    if (projectsAnimationRef.current) {
+      projectsAnimationRef.current.pause();
+    }
+  };
+
+  const handleProjectsMouseLeave = () => {
+    if (projectsAnimationRef.current) {
+      projectsAnimationRef.current.resume();
+    }
+  };
+
+  const handleProjectsTouchStart = () => {
+    if (projectsAnimationRef.current) {
+      projectsAnimationRef.current.pause();
+    }
+  };
+
+  const handleProjectsTouchEnd = () => {
+    if (projectsAnimationRef.current) {
+      projectsAnimationRef.current.resume();
+    }
+  };
 
   if (isLoading) {
     return (
@@ -685,52 +746,122 @@ export default function Home() {
             View Projects
           </a>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-6xl w-full">
-          <div className="card-glass">
-            <Icon3D />
-            <h3 className="text-lg lg:text-xl font-semibold mb-3">Portfolio</h3>
-            <p className="text-muted-foreground mb-4 text-sm lg:text-base">
-              A project showcases my skills, experience, and featured works in a
-              clean and responsive design.
-            </p>
-          </div>
 
-          <div className="card-glass">
-            <div
-              className={`${
-                isMobile ? "w-16 h-16" : "w-24 h-24"
-              } mx-auto mb-4 overflow-hidden rounded-xl shadow-lg`}
-            >
-              <img
-                src="/images/projects/MysukanLogo1.png"
-                alt="MySukan Logo"
-                className="w-full h-full object-contain scale-[1.3]"
-              />
-            </div>
-            <h3 className="text-lg lg:text-xl font-semibold mb-3">MySukan</h3>
-            <p className="text-muted-foreground mb-4 text-sm lg:text-base">
-              A Real-Time Sport Matchmaking Application.
-            </p>
-          </div>
+        {/* Auto-scrolling projects container */}
+        <div className="w-full max-w-6xl overflow-hidden">
+          <div
+            ref={projectsScrollRef}
+            className="overflow-x-auto scrollbar-hide"
+            onMouseEnter={handleProjectsMouseEnter}
+            onMouseLeave={handleProjectsMouseLeave}
+            onTouchStart={handleProjectsTouchStart}
+            onTouchEnd={handleProjectsTouchEnd}
+            style={{
+              cursor: "grab",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+          >
+            <div className="flex gap-6 lg:gap-8 pb-4">
+              <div className="card-glass flex-shrink-0 w-80 lg:w-96">
+                <Icon3D />
+                <h3 className="text-lg lg:text-xl font-semibold mb-3">
+                  Portfolio
+                </h3>
+                <p className="text-muted-foreground mb-4 text-sm lg:text-base">
+                  A project showcases my skills, experience, and featured works
+                  in a clean and responsive design.
+                </p>
+              </div>
 
-          <div className="card-glass lg:col-span-2 xl:col-span-1">
-            <div className="w-16 h-16 lg:w-24 lg:h-24 mx-auto mb-4 flex items-center justify-center">
-              <h1
-                className={`${
-                  isMobile ? "text-2xl" : "text-3xl"
-                } font-semibold`}
-              >
-                Blog<span className="text-blue-500">Azam</span>
-              </h1>
+              <div className="card-glass flex-shrink-0 w-80 lg:w-96">
+                <div
+                  className={`${
+                    isMobile ? "w-16 h-16" : "w-24 h-24"
+                  } mx-auto mb-4 overflow-hidden rounded-xl shadow-lg`}
+                >
+                  <img
+                    src="/images/projects/MysukanLogo1.png"
+                    alt="MySukan Logo"
+                    className="w-full h-full object-contain scale-[1.3]"
+                  />
+                </div>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3">
+                  MySukan
+                </h3>
+                <p className="text-muted-foreground mb-4 text-sm lg:text-base">
+                  A Real-Time Sport Matchmaking Application.
+                </p>
+              </div>
+
+              <div className="card-glass flex-shrink-0 w-80 lg:w-96">
+                <div className="w-16 h-16 lg:w-24 lg:h-24 mx-auto mb-4 flex items-center justify-center">
+                  <h1
+                    className={`${
+                      isMobile ? "text-2xl" : "text-3xl"
+                    } font-semibold`}
+                  >
+                    Blog<span className="text-blue-500">Azam</span>
+                  </h1>
+                </div>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3">
+                  Blogging Website
+                </h3>
+                <p className="text-muted-foreground mb-4 text-sm lg:text-base">
+                  Users can create, edit, and manage posts in a minimal and
+                  responsive interface.
+                </p>
+              </div>
+
+              {/* Duplicate cards for seamless loop effect */}
+              <div className="card-glass flex-shrink-0 w-80 lg:w-96">
+                <div
+                  className={`${
+                    isMobile ? "w-16 h-16" : "w-24 h-24"
+                  } mx-auto mb-4 overflow-hidden rounded-xl shadow-lg`}
+                >
+                  <img
+                    src="/images/projects/catering.jpg"
+                    alt="Catering Booking Website"
+                    className="w-full h-full object-contain scale-[1.3]"
+                  />
+                </div>
+                <h3 className="text-lg lg:text-xl font-semibold mb-3">
+                  Catering Booking Website
+                </h3>
+                <p className="text-muted-foreground mb-4 text-sm lg:text-base">
+                  A project showcases my skills, experience, and featured works
+                  in a clean and responsive design.
+                </p>
+              </div>
+
+              <Link href="/projects">
+                <div className="card-glass flex-shrink-0 w-80 lg:w-96 cursor-pointer hover:scale-105 transition-transform">
+                  <div className="w-16 h-16 lg:w-24 lg:h-24 mx-auto mb-4 flex items-center justify-center">
+                    <h1
+                      className={`${
+                        isMobile ? "text-2xl" : "text-3xl"
+                      } font-semibold`}
+                    >
+                      more<span className="text-red-500">projects</span>
+                    </h1>
+                  </div>
+                  <h3 className="text-lg lg:text-xl font-semibold mb-3">
+                    Browse more
+                  </h3>
+                  <p className="text-muted-foreground mb-4 text-sm lg:text-base">
+                    click here for more project details
+                  </p>
+                </div>
+              </Link>
             </div>
-            <h3 className="text-lg lg:text-xl font-semibold mb-3">
-              Blogging Website
-            </h3>
-            <p className="text-muted-foreground mb-4 text-sm lg:text-base">
-              Users can create, edit, and manage posts in a minimal and
-              responsive interface.
-            </p>
           </div>
+        </div>
+
+        <div className="mt-4 text-center">
+          <p className="text-muted-foreground text-sm">
+            Hover or hold to pause scrolling
+          </p>
         </div>
       </section>
 
